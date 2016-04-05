@@ -17,17 +17,17 @@
 
 <template name="main">
 	<h2>Server information</h2>
-	Server status: {{status}}
 	<br />
 	<br />
 	{{#if ready}}
 		IP: {{ip}}
+		<br />
+		<br />
+		<button>Give me a new server</button>
 	{{/if}}
-	<br />
-	<br />
-	<br />
-	<br />
-	<button>Click me</button>
+	{{#unless ready}}
+		{{loadingStatus}}
+	{{/unless}}
 </template>
 
 <template name="info">

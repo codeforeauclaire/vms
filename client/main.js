@@ -54,7 +54,7 @@ Template.main.helpers({
 	counter: function() {
 		return Template.instance().counter.get();
 	},
-	status: function() {
+	loadingStatus: function() {
 		return Template.instance().status.get().human;
 	},
 	ready: function() {
