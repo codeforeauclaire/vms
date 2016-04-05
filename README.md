@@ -23,18 +23,12 @@
 
 ## TODO
 
-### TODO: MVP
-
-1. Implement old server deletion as garbage collection (not jobs)
- 1. Query the DigitalOcean API to find servers over a set age, and delete them
- 1. Figure out how to do this within single Meteor instance, not a cron or job thing
 1. Setup on vms.codeforeauclaire.org
 
 ### TODO: Later?
 
 1. Cleanup code
 1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
-1. Address use case of expired server, and local storage still has id
 1. Add hard throttling on server (values in settings.json)
  1. Max servers running at a time
  1. Max spin ups per given unit of time
