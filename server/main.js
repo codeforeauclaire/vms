@@ -16,7 +16,7 @@ Meteor.methods({
 			token: Meteor.settings.digitalocean.apitoken
 		});
 		var requestBody = {
-			name: 'test',
+			name: 'vms-virtual-machine',
 			region: 'nyc3',
 			size: '512mb',
 			image: 'ubuntu-14-04-x64',
