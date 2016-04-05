@@ -151,7 +151,7 @@ Template.main.helpers({
 		return moment.duration(1000 * status.secondsToSelfDestruct).format('h:mm:ss');
 	}
 });
-Template.authInstructions.helpers({
+Template.auth.helpers({
 	privateKey: function() {
 		return Meteor.settings.public.sshkey.private;
 	}
