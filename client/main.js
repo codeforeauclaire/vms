@@ -1,4 +1,5 @@
 'use strict';
+/* global Meteor */
 
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -17,6 +18,6 @@ Template.main.helpers({
 
 Template.main.events({
   'click button'(event, instance) {
-	  console.log('clicked');
+	  Meteor.call('spinUpNewVM');
   }
 });
