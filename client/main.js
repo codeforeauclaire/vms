@@ -9,8 +9,8 @@ import './main.html';
 var getStatus = function() {
 	return JSON.parse(localStorage.getItem('status'));
 };
-var setStatus = function(statusSetTo, reactiveVar) {
-	reactiveVar.set(statusSetTo);
+var setStatus = function(statusSetTo, reactiveStatus) {
+	reactiveStatus.set(statusSetTo);
 	return localStorage.setItem('status', JSON.stringify(statusSetTo));
 };
 var isReady = function(serverData) {
@@ -35,10 +35,26 @@ var runPoller = function(serverId, reactiveStatus) {
 					human: 'Server info received, awaiting active status' +
 						' (this usually finishes in under 60 seconds)',
 					serverData: result
-				}, that.status);
+				}, reactiveStatus);
 			}
 		});
 	}, 5000);
+};
+var spinNewVM = function(reactiveStatus) {
+	setStatus({ human: 'Requesting to spin up a new server' }, reactiveStatus);
+	Meteor.call('spinUpNewVM', function(err, result) {
+		if (err) {
+			setStatus(
+				{
+					human: 'Error spinning up a new server'
+				},
+				reactiveStatus
+			);
+			return;
+		}
+		setStatus({ human: 'Spinning up a new server', serverData: result }, reactiveStatus);
+		runPoller(result.id, reactiveStatus);
+	});
 };
 
 Template.main.onCreated(function() {
@@ -52,21 +68,7 @@ Template.main.onCreated(function() {
 		}
 		this.status.set(status);
 	} else {
-		var that = this;
-		setStatus({ human: 'Requesting to spin up a new server' }, this.status);
-		Meteor.call('spinUpNewVM', function(err, result) {
-			if (err) {
-				setStatus(
-					{
-						human: 'Error spinning up a new server'
-					},
-					that.status
-				);
-				return;
-			}
-			setStatus({ human: 'Spinning up a new server', serverData: result }, that.status);
-			runPoller(result.id);
-		});
+		spinNewVM(this.status);
 	}
 });
 
