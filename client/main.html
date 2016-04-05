@@ -26,6 +26,9 @@
 		<button>Give me a new server</button>
 	{{/if}}
 	{{#unless ready}}
+		<span class="spin-container">
+			{{> spinner}}
+		</span>
 		{{loadingStatus}}
 	{{/unless}}
 </template>

@@ -55,6 +55,7 @@ reactive-var@1.0.7
 reload@1.1.6
 retry@1.0.5
 routepolicy@1.0.8
+sacha:spin@2.3.1
 spacebars@1.0.9
 spacebars-compiler@1.0.9
 standard-minifier-css@1.0.4
