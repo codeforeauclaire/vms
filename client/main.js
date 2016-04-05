@@ -65,7 +65,8 @@ var spinNewVM = function(reactiveStatus) {
 		runPoller(result.id, reactiveStatus);
 	});
 };
-var destroyOldVM = function(serverId, reactiveStatus, cb) {
+var destroyOldVM = function(serverId, reactiveStatus) {
+	console.log('destroyOldVM(...)');
 	setStatus(
 		{
 			human: 'Destroying existing server',
@@ -73,19 +74,36 @@ var destroyOldVM = function(serverId, reactiveStatus, cb) {
 			serverData: reactiveStatus.get().serverData
 		},
 	reactiveStatus);
-	cb(false, 'Some json should go here');
+	Meteor.call('destroyOldVM', serverId, function(err, res) {
+		if (err) {
+			setStatus(
+				{
+					human: 'Error destroying existing server (Try again by refreshing)',
+					serverData: reactiveStatus.get().serverData,
+					destroying: true
+				},
+				reactiveStatus
+			);
+			return;
+		}
+
+	});
 };
 
 Template.main.onCreated(function() {
 	this.status = new ReactiveVar();
 	var status = getStatus();
 	if (status) {
+		this.status.set(status);
+		if (status.destroying) {
+			destroyOldVM(status.serverData.id, this.status);
+			return;
+		}
 		if (!isReady(status.serverData)) {
 			if (status.serverData && status.serverData.id) {
 				runPoller(status.serverData.id, this.status);
 			}
 		}
-		this.status.set(status);
 	} else {
 		spinNewVM(this.status);
 	}
@@ -120,18 +138,7 @@ Template.main.events({
 		if (confirm(msg)) {
 			var reactiveStatus = Template.instance().status;
 			var status = reactiveStatus.get();
-			destroyOldVM(status.serverData.id, reactiveStatus, function(err, result) {
-				console.log(status);
-				if (err) {
-					setStatus(
-						{
-							human: 'Error destroying existing server'
-						},
-						reactiveStatus
-					);
-					return;
-				}
-			});
+			destroyOldVM(status.serverData.id, reactiveStatus);
 		}
 	}
 });
