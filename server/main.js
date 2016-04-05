@@ -49,5 +49,19 @@ Meteor.methods({
 			fut.return(data);
 		});
 		return fut.wait();
+	},
+	'destroyOldVM': function(serverId) {
+		console.log('destroyOldVM:' + serverId);
+		var api = new DigitalOceanApi({
+			token: Meteor.settings.digitalocean.apitoken
+		});
+		var fut = new Future();
+		api.deleteDroplet(serverId, function(err, data) {
+			if (err) {
+				return fut.throw(err);
+			}
+			fut.return(data);
+		});
+		return fut.wait();
 	}
 });

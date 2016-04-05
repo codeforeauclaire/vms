@@ -78,15 +78,16 @@ var destroyOldVM = function(serverId, reactiveStatus) {
 		if (err) {
 			setStatus(
 				{
-					human: 'Error destroying existing server (Try again by refreshing)',
+					human: 'Error destroying existing server (we\'ll sping a new one anyways)',
 					serverData: reactiveStatus.get().serverData,
 					destroying: true
 				},
 				reactiveStatus
 			);
+			spinNewVM(reactiveStatus);
 			return;
 		}
-
+		spinNewVM(reactiveStatus);
 	});
 };
 
