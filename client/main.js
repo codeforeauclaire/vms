@@ -1,5 +1,5 @@
 'use strict';
-/* global Meteor */
+/* global Meteor, moment */
 
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -127,8 +127,11 @@ Template.main.helpers({
 		return serverData.networks.v4[0][key];
 	},
 	selfDestructTimeLeftHuman: function() {
-		// TODO: Return real value
-		return '5 hours 50 minutes and 10 seconds';
+		var serverData = Template.instance().status.get().serverData;
+		var key = 'created_at';
+		var serverShutdownAt = moment(serverData[key]).add(5, 'hours');
+		var diff = serverShutdownAt.diff(moment(), 'seconds');
+		return moment.duration(1000 * diff).format('h:mm:ss');
 	}
 });
 Template.authInstructions.helpers({
