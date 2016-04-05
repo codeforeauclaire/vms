@@ -2,12 +2,23 @@
 /* global Meteor */
 
 import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
+var getStatus = function() {
+	return localStorage.getItem('status');
+};
+var setStatus = function(status) {
+	return localStorage.setItem('status', status);
+};
+
 Template.main.onCreated(function() {
-	this.counter = new ReactiveVar(0);
+	if (!getStatus()) {
+		setStatus('spinning');
+		Meteor.call('spinUpNewVM', function() {
+			setStatus('spun');
+		});
+	}
 });
 
 Template.main.helpers({
@@ -18,6 +29,6 @@ Template.main.helpers({
 
 Template.main.events({
   'click button'(event, instance) {
-	  Meteor.call('spinUpNewVM');
+		console.log(getStatus());
   }
 });
