@@ -12,7 +12,6 @@ Meteor.methods({
 		var api = new DigitalOceanApi({
 			token: Meteor.settings.digitalocean.apitoken
 		});
-		Meteor._sleepForMs(2000);
 		var requestBody = {
 			name: 'test',
 			region: 'nyc3',
