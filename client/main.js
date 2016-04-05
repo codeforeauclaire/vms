@@ -1,3 +1,5 @@
+'use strict';
+
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
@@ -10,11 +12,11 @@ Template.main.onCreated(function() {
 Template.main.helpers({
   counter() {
     return Template.instance().counter.get();
-  },
+  }
 });
 
 Template.main.events({
   'click button'(event, instance) {
 	  console.log('clicked');
-  },
+  }
 });
