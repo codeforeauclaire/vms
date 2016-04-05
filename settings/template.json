@@ -6,6 +6,7 @@
 		"serverlifespanhours": 5,
 		"sshkey": {
 			"private":"",
+			"ppk":"",
 			"public":"",
 			"fingerprint":""
 		}

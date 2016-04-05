@@ -16,6 +16,9 @@
           1. `cat ./new |  while read line; do echo -n "$line\\n"; done`
       1. Put public key on Digital Ocean @ https://cloud.digitalocean.com/settings/security
           1. Which will give you the fingerprint
+	  1. Generate ppk using PuttyGen (Install & open PuttyGen on windows >> Load your private key >> save private key as new.ppk)
+	      1. Put the putty private key in your settings.json with "\n" strings in place of newlines
+              1. `cat ./new.ppk |  while read line; do echo -n "$line\\n"; done`
 1. `meteor --settings [Location of your settings file]`
 
 ## TODO
