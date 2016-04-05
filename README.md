@@ -25,7 +25,7 @@
 
 ### TODO: MVP
 
-1. Implement old server deletion as garbage collection, not jobs
+1. Implement old server deletion as garbage collection (not jobs)
  1. Query the DigitalOcean API to find servers over a set age, and delete them
  1. Figure out how to do this within single Meteor instance, not a cron or job thing
 1. Setup on vms.codeforeauclaire.org
