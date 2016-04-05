@@ -9,7 +9,7 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	'spinUpNewVM': function() {
-		console.log('spingUpNewVM');
+		console.log('spinUpNewVM');
 		var api = new DigitalOceanApi({
 			token: Meteor.settings.digitalocean.apitoken
 		});
