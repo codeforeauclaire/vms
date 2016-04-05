@@ -10,7 +10,7 @@ var getStatus = function() {
 	return localStorage.getItem('status');
 };
 var setStatus = function(statusSetTo, reactiveVar) {
-	reactiveVar.set('spinning');
+	reactiveVar.set(statusSetTo);
 	return localStorage.setItem('status', statusSetTo);
 };
 
