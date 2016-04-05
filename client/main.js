@@ -35,11 +35,15 @@ Template.main.onCreated(function() {
 					if (err) {
 						setStatus({ human: 'Error getting server info' }, that.status);
 					}
-					setStatus({ human: 'Got server info', serverData: result }, that.status);
 					if (isReady(result)) {
+						setStatus({ human: null, serverData: result }, that.status);
 						clearInterval(poller);
+					} else {
+						setStatus({
+							human: 'Server info received, awaiting active status',
+							serverData: result
+						}, that.status);
 					}
-					console.log(result);
 				});
 			}, 5000);
 		});

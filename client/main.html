@@ -16,9 +16,11 @@
 
 
 <template name="main">
+	<h2>Server information</h2>
 	Server status: {{status}}
+	<br />
+	<br />
 	{{#if ready}}
-		<h2>Server information</h2>
 		IP: {{ip}}
 	{{/if}}
 	<br />
@@ -29,5 +31,6 @@
 </template>
 
 <template name="info">
+	<h3>Other information</h3>
 	If you use this a lot please rent from <a href="https://www.digitalocean.com/">Digital Ocean</a>, servers start at under $0.01 per hour.
 </template>
