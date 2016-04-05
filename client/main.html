@@ -23,7 +23,6 @@
 <template name="main">
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
-		{{> info ip=ip}}
 		{{> connect ip=ip}}
 		{{> manage}}
 	{{/if}}
@@ -33,13 +32,6 @@
 		</span>
 		{{loadingStatus}}
 	{{/unless}}
-</template>
-
-<template name="info">
-	<h3>Info</h3>
-	<p>
-		IP: {{ip}}
-	</p>
 </template>
 
 <template name="connect">
@@ -93,11 +85,6 @@
 			<!-- Nav tabs -->
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active">
-					<a href="#key" aria-controls="key" role="tab" data-toggle="tab">
-						Raw Key
-					</a>
-				</li>
-				<li role="presentation">
 					<a href="#linux" aria-controls="linux" role="tab" data-toggle="tab">
 						Linux / MacOS
 					</a>
@@ -111,15 +98,7 @@
 
 			<!-- Tab panes -->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="key">
-					<br />
-					This is a raw private key that will connect you to the virtual machine as the root user.
-					<br />
-					If you're unsure what to do with it, click a tab for instructions on your opterating system.
-					<br />
-					<pre>{{privateKey}}</pre>
-				</div>
-				<div role="tabpanel" class="tab-pane" id="linux">
+				<div role="tabpanel" class="tab-pane active" id="linux">
 					<br />
 					Save the private key
 					<pre>echo "{{privateKey}}" > ~/.ssh/vms_id_rsa</pre>
