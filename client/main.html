@@ -15,9 +15,28 @@
 
 
 <template name="main">
+	<h2>Authentication</h2>
+	Use this private key to connect to your server once it's active
+	<pre>{{privateKey}}</pre>
+
+	<h4>Mac / Linux</h4>
+	<pre>echo "{{privateKey}}" > ~/.ssh/vms_id_rsa</pre>
+	<pre>chmod 0600 ~/.ssh/vms_id_rsa</pre>
+
+	<h4>Windows</h4>
+	<pre>Instructions here need work</pre>
+	<pre>{{privateKey}}</pre>
+	<a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh">How To Connect To Your Machine with SSH</a>
+
+
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
 		IP: {{ip}}
+		<br />
+		<br />
+		<h3>Connecting to your machine</h3>
+		<h4>Mac / Linux</h4>
+		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
 		<br />
 		<br />
 		Machine will self destruct in {{selfDestructTimeLeftHuman}}

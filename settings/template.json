@@ -3,5 +3,10 @@
 		"apitoken": ""
 	},
 	"public": {
+		"sshkey": {
+			"private":"",
+			"public":"",
+			"fingerprint":""
+		}
 	}
 }

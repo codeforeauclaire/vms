@@ -1,4 +1,6 @@
 'use strict';
+/*globals Meteor*/
+
 import { Meteor } from 'meteor/meteor';
 import DigitalOceanApi from 'digital-ocean-api';
 import Future from 'fibers/future';
@@ -18,7 +20,7 @@ Meteor.methods({
 			region: 'nyc3',
 			size: '512mb',
 			image: 'ubuntu-14-04-x64',
-			'ssh_keys': null,
+			'ssh_keys': [ Meteor.settings.public.sshkey.fingerprint ],
 			backups: false,
 			ipv6: false,
 			'user_data': null,
