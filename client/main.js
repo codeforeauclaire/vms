@@ -129,7 +129,9 @@ Template.main.helpers({
 	selfDestructTimeLeftHuman: function() {
 		// TODO: Return real value
 		return '5 hours 50 minutes and 10 seconds';
-	},
+	}
+});
+Template.authInstructions.helpers({
 	privateKey: function() {
 		return Meteor.settings.public.sshkey.private;
 	}

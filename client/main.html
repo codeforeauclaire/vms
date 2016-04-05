@@ -14,6 +14,7 @@
 		{{> main}}
 		<br />
 		<br />
+		{{> authInstructions}}
 		<br />
 		<br />
 		{{> info}}
@@ -23,6 +24,30 @@
 
 <template name="main">
 
+	<h2>Your Virtual Machine</h2>
+	{{#if ready}}
+		IP: {{ip}}
+		<br />
+		<br />
+		<h3>Connecting to your machine</h3>
+		<h4>Mac / Linux</h4>
+		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+		<br />
+		<br />
+		Machine will self destruct in {{selfDestructTimeLeftHuman}}
+		<br />
+		<br />
+		<button>Give me a new machine</button>
+	{{/if}}
+	{{#unless ready}}
+		<span class="spin-container">
+			{{> spinner}}
+		</span>
+		{{loadingStatus}}
+	{{/unless}}
+</template>
+
+<template name="authInstructions">
 	<h2>Authentication Setup Instructions</h2>
 	These Virtual Machines use public / private key encryption.
 	<div class="panel panel-default">
@@ -72,29 +97,6 @@
 			</div>
 		</div>
 	</div>
-
-
-	<h2>Your Virtual Machine</h2>
-	{{#if ready}}
-		IP: {{ip}}
-		<br />
-		<br />
-		<h3>Connecting to your machine</h3>
-		<h4>Mac / Linux</h4>
-		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
-		<br />
-		<br />
-		Machine will self destruct in {{selfDestructTimeLeftHuman}}
-		<br />
-		<br />
-		<button>Give me a new machine</button>
-	{{/if}}
-	{{#unless ready}}
-		<span class="spin-container">
-			{{> spinner}}
-		</span>
-		{{loadingStatus}}
-	{{/unless}}
 </template>
 
 <template name="info">
