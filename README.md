@@ -26,6 +26,9 @@
 1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
 1. Create windows setup auth & connect instructions
 1. Address use case of expired server, and local storage still has id
+1. Get all the way through commiting git code from the dev server?
+ 1. Need quick way to get credentials on there then...
+ 1. Install a few packages quickly after it's spun up? Like git.
 1. Implement old server deletion as garbage collection, not jobs
  1. Query the DigitalOcean API to find servers over a set age, and delete them
  1. Figure out how to do this within single Meteor instance, not a cron or job thing
