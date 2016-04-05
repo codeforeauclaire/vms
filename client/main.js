@@ -7,11 +7,11 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import './main.html';
 
 var getStatus = function() {
-	return localStorage.getItem('status');
+	return JSON.parse(localStorage.getItem('status'));
 };
 var setStatus = function(statusSetTo, reactiveVar) {
 	reactiveVar.set(statusSetTo);
-	return localStorage.setItem('status', statusSetTo);
+	return localStorage.setItem('status', JSON.stringify(statusSetTo));
 };
 var isReady = function(serverData) {
 	return serverData && serverData.status && (serverData.status === 'active');
