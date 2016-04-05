@@ -43,8 +43,43 @@
 
 <template name="connect">
 	<h3>Connect</h3>
-	<h5>Mac / Linux</h5>
-	<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+	<p>
+		Setup <a href="#auth">authentication</a> first if you haven't yet.
+	</p>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#connectLinux" aria-controls="connectLinux"
+						role="tab"
+						data-toggle="tab">
+						Linux / MacOS
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#connectWindows" aria-controls="connectWindows"
+						role="tab"
+						data-toggle="tab">
+						Windows
+					</a>
+				</li>
+			</ul>
+
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="connectLinux">
+					<br />
+					<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="connectWindows">
+					<br />
+					Instructions here need work
+					Maybe <a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh">How To Connect To Your Machine with SSH</a> will help?
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <template name="manage">
@@ -53,7 +88,7 @@
 </template>
 
 <template name="auth">
-	<h3>Authenticate</h3>
+	<h3 id="auth">Authenticate</h3>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<!-- Nav tabs -->
