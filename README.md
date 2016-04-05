@@ -23,7 +23,11 @@
 
 ## TODO
 
-1. Setup on vms.codeforeauclaire.org
+1. Get on vms.codeforeauclaire.org (move from vms.c4ec.astige.com)
+ 1. Await DNS
+ 1. Deploy new site
+ 1. Redirect old domain (for a week maybe)
+ 1. Remove old site (and deploy script for old domain)
 
 ### TODO: Later?
 
