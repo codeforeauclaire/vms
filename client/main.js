@@ -68,6 +68,11 @@ Template.main.helpers({
 
 Template.main.events({
 	'click button' (event, instance) {
-		console.log(Template.instance().status.get());
+		var msg = 'Are you sure you want to do this?' +
+			'  Your current server will be immediately destroyed.';
+		if (confirm(msg)) {
+			// TODO: Implement this functionality
+			alert('TODO: Implement this functionality');
+		}
 	}
 });
