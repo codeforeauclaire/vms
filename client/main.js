@@ -31,11 +31,19 @@ var runPoller = function(serverId, reactiveStatus) {
 				setStatus({ human: null, serverData: result }, reactiveStatus);
 				clearInterval(poller);
 			} else {
-				setStatus({
-					human: 'Server info received, awaiting active status' +
-						' (this usually finishes in under 60 seconds)',
-					serverData: result
-				}, reactiveStatus);
+				var estimatedSecondsLeft = 45;
+				var oldStatus = reactiveStatus.get();
+				if (oldStatus && oldStatus.estimatedSecondsLeft) {
+					estimatedSecondsLeft = oldStatus.estimatedSecondsLeft - 5;
+				}
+				setStatus(
+					{
+						estimatedSecondsLeft: estimatedSecondsLeft,
+						human: 'Server info received, awaiting active status' +
+							' (expected to finish within ' + estimatedSecondsLeft + ' seconds)',
+						serverData: result
+					},
+				reactiveStatus);
 			}
 		});
 	}, 5000);
