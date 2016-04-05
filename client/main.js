@@ -41,7 +41,8 @@ Template.main.onCreated(function() {
 						clearInterval(poller);
 					} else {
 						setStatus({
-							human: 'Server info received, awaiting active status',
+							human: 'Server info received, awaiting active status' +
+								' (this usually finishes in under 60 seconds)',
 							serverData: result
 						}, that.status);
 					}
