@@ -30,7 +30,7 @@
  1. Figure out how to do this within single Meteor instance, not a cron or job thing
 1. Setup on vms.codeforeauclaire.org
 
-### TODO: Later
+### TODO: Later?
 
 1. Cleanup code
 1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
