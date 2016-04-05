@@ -4,6 +4,7 @@
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 
+import selectText from './selectText.js';
 import './main.html';
 
 var getStatus = function() {
@@ -151,12 +152,22 @@ Template.main.helpers({
 		return moment.duration(1000 * status.secondsToSelfDestruct).format('h:mm:ss');
 	}
 });
+Template.main.events({
+	'click pre': function(e) {
+		selectText(e.target);
+	}
+});
 Template.auth.helpers({
 	privateKey: function() {
 		return Meteor.settings.public.sshkey.private;
 	},
 	ppk: function() {
 		return Meteor.settings.public.sshkey.ppk;
+	}
+});
+Template.auth.events({
+	'click pre': function(e) {
+		selectText(e.target);
 	}
 });
 
