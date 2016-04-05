@@ -12,32 +12,23 @@
 	</nav>
 	<div class="container">
 		{{> main}}
-		<br />
-		<br />
 		{{> authInstructions}}
-		<br />
-		<br />
 		{{> info}}
+		<br />
 	</div>
 </body>
 
 
 <template name="main">
-
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
 		IP: {{ip}}
-		<br />
-		<br />
-		<h3>Connecting to your machine</h3>
-		<h4>Mac / Linux</h4>
+		<h4>Connecting to your machine</h4>
+		<h5>Mac / Linux</h5>
 		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
 		<br />
 		<br />
-		Machine will self destruct in {{selfDestructTimeLeftHuman}}
-		<br />
-		<br />
-		<button>Give me a new machine</button>
+		<button class="btn btn-default">Give me a new machine</button> Machine will self destruct in {{selfDestructTimeLeftHuman}}
 	{{/if}}
 	{{#unless ready}}
 		<span class="spin-container">
@@ -48,8 +39,7 @@
 </template>
 
 <template name="authInstructions">
-	<h2>Authentication Setup Instructions</h2>
-	These Virtual Machines use public / private key encryption.
+	<h3>Authentication Setup Instructions</h3>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<!-- Nav tabs -->
@@ -75,7 +65,7 @@
 			<div class="tab-content">
 				<div role="tabpanel" class="tab-pane active" id="key">
 					<br />
-					This is a raw private key that will connect you to the virtual machine.
+					This is a raw private key that will connect you to the virtual machine as the root user.
 					<br />
 					If you're unsure what to do with it, click a tab for instructions on your opterating system.
 					<br />
