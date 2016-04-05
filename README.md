@@ -1,3 +1,9 @@
+## Purpose
+
+* New developers coming to C4EC need development enviornments
+* Diverse project demos
+    * Gives clean enviornment to follow along and test READMEs
+
 ## Getting started with this code
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
