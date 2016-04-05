@@ -24,7 +24,7 @@
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
 		{{> connect ip=ip}}
-		{{> manage}}
+		{{> manage selfDestructTimeLeftHuman=selfDestructTimeLeftHuman}}
 	{{/if}}
 	{{#unless ready}}
 		<span class="spin-container">
