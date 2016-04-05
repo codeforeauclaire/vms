@@ -32,6 +32,8 @@
 ### TODO: Later?
 
 1. Cleanup code
+1. Make wait after server status is active another 10 seconds (sometimes can't ssh in right away)
+1. Add UI clear for select all on pre boxes when clicked
 1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
 1. Add hard throttling on server (values in settings.json)
  1. Max servers running at a time
