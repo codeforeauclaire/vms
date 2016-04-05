@@ -21,21 +21,13 @@
 ## TODO
 
 1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
-1. Pretty this up, adding bootstrap
-1. Setup Documentation how to get started as a developer (display on main html)
- 1. Instructions how to SSH into a server for any platform (link to something)
-1. Mock up UI for this whole thing
+1. Create windows setup auth & connect instructions
 1. Address use case of expired server, and local storage still has id
-1. Setup to accept Anthony's started settings to deploy to his mets
-1. Setup Jobs to destroy servers after it's been up for 1 hour
-1. Think through / review more / add more here as needed
 1. Implement old server deletion as garbage collection, not jobs
  1. Query the DigitalOcean API to find servers over a set age, and delete them
-1. Add throttling to prevent people from adding too many
- 1. At the client level?
- 1. Add hard setting at the server level, at most 20 servers going at once
-1. Add config for how long server stays up (6 hours I think)
+ 1. Figure out how to do this within single Meteor instance, not a cron or job thing
+1. Add hard throttling on server (values in settings.json)
+ 1. Max servers running at a time
+ 1. Max spin ups per given unit of time
 1. Get this setup on vms.codeforeauclaire.org
-1. Add button to destroy the server (which does all them to create another)
- 1. Later: Add throttling here
 1. Cleanup code!
