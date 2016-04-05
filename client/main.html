@@ -22,18 +22,56 @@
 
 
 <template name="main">
-	<h2>Authentication</h2>
-	Use this private key to connect to your server once it's active
-	<pre>{{privateKey}}</pre>
 
-	<h4>Mac / Linux</h4>
-	<pre>echo "{{privateKey}}" > ~/.ssh/vms_id_rsa</pre>
-	<pre>chmod 0600 ~/.ssh/vms_id_rsa</pre>
+	<h2>Authentication Setup Instructions</h2>
+	These Virtual Machines use public / private key encryption.
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<!-- Nav tabs -->
+			<ul class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a href="#key" aria-controls="key" role="tab" data-toggle="tab">
+						Raw Key
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#linux" aria-controls="linux" role="tab" data-toggle="tab">
+						Linux / MacOS
+					</a>
+				</li>
+				<li role="presentation">
+					<a href="#windows" aria-controls="windows" role="tab" data-toggle="tab">
+						Windows
+					</a>
+				</li>
+			</ul>
 
-	<h4>Windows</h4>
-	<pre>Instructions here need work</pre>
-	<pre>{{privateKey}}</pre>
-	<a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh">How To Connect To Your Machine with SSH</a>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane active" id="key">
+					<br />
+					This is a raw private key that will connect you to the virtual machine.
+					<br />
+					If you're unsure what to do with it, click a tab for instructions on your opterating system.
+					<br />
+					<pre>{{privateKey}}</pre>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="linux">
+					<br />
+					Save the private key
+					<pre>echo "{{privateKey}}" > ~/.ssh/vms_id_rsa</pre>
+					Set permissions
+					<pre>chmod 0600 ~/.ssh/vms_id_rsa</pre>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="windows">
+					<br />
+					Instructions here need work
+					Maybe <a href="https://www.digitalocean.com/community/tutorials/how-to-connect-to-your-droplet-with-ssh">How To Connect To Your Machine with SSH</a> will help?
+					<pre>{{privateKey}}</pre>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<h2>Your Virtual Machine</h2>
