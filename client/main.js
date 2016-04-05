@@ -10,6 +10,11 @@ var getStatus = function() {
 	return JSON.parse(localStorage.getItem('status'));
 };
 var setStatus = function(statusSetTo, reactiveStatus) {
+	var key = 'created_at';
+	if (statusSetTo && statusSetTo.serverData && statusSetTo.serverData[key]) {
+		var serverShutdownAt = moment(statusSetTo.serverData[key]).add(5, 'hours');
+		statusSetTo.secondsToSelfDestruct = serverShutdownAt.diff(moment(), 'seconds');
+	}
 	reactiveStatus.set(statusSetTo);
 	return localStorage.setItem('status', JSON.stringify(statusSetTo));
 };
@@ -66,7 +71,6 @@ var spinNewVM = function(reactiveStatus) {
 	});
 };
 var destroyOldVM = function(serverId, reactiveStatus) {
-	console.log('destroyOldVM(...)');
 	setStatus(
 		{
 			human: 'Destroying existing server',
@@ -127,11 +131,8 @@ Template.main.helpers({
 		return serverData.networks.v4[0][key];
 	},
 	selfDestructTimeLeftHuman: function() {
-		var serverData = Template.instance().status.get().serverData;
-		var key = 'created_at';
-		var serverShutdownAt = moment(serverData[key]).add(5, 'hours');
-		var diff = serverShutdownAt.diff(moment(), 'seconds');
-		return moment.duration(1000 * diff).format('h:mm:ss');
+		var status = Template.instance().status.get();
+		return moment.duration(1000 * status.secondsToSelfDestruct).format('h:mm:ss');
 	}
 });
 Template.authInstructions.helpers({
