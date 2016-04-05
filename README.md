@@ -1,10 +1,10 @@
 ## Purpose
 
-* New developers coming to C4EC need development enviornments
-* Diverse project demos
-    * Gives clean enviornment to follow along and test READMEs
+* New developers coming to C4EC need to experience clean development enviornments
+* Diverse projectis require clean enviornment to do follow along demos and test READMEs
+* Quick testing of one off ideas
 
-## Getting started with this code
+## Contributing (Setting up a dev enviornment)
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
@@ -23,8 +23,8 @@
 
 ## TODO
 
-1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
-1. Address use case of expired server, and local storage still has id
+### TODO: MVP
+
 1. Get all the way through commiting git code from the dev server?
  1. Need quick way to get credentials on there then...
  1. Don't forget to add instructions how to edit files in windows way? Putty ftp or something?
@@ -32,8 +32,13 @@
 1. Implement old server deletion as garbage collection, not jobs
  1. Query the DigitalOcean API to find servers over a set age, and delete them
  1. Figure out how to do this within single Meteor instance, not a cron or job thing
+1. Setup on vms.codeforeauclaire.org
+
+### TODO: Later
+
+1. Cleanup code
+1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
+1. Address use case of expired server, and local storage still has id
 1. Add hard throttling on server (values in settings.json)
  1. Max servers running at a time
  1. Max spin ups per given unit of time
-1. Get this setup on vms.codeforeauclaire.org
-1. Cleanup code!
