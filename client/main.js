@@ -30,6 +30,7 @@ Template.main.onCreated(function() {
 				return;
 			}
 			setStatus({ human: 'Spinning up a new server', serverData: result }, that.status);
+			// TODO: Setup poller also at start in case page refreshed
 			var poller = setInterval(function() {
 				Meteor.call('getVmInfo', result.id, function(err, result) {
 					if (err) {
@@ -62,7 +63,8 @@ Template.main.helpers({
 	},
 	ip: function() {
 		var serverData = Template.instance().status.get().serverData;
-		return serverData.networks.v4[0].ip_address;
+		var key = 'ip_address';
+		return serverData.networks.v4[0][key];
 	},
 	selfDestructTimeLeftHuman: function() {
 		// TODO: Return real value
