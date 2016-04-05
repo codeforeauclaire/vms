@@ -1,6 +1,7 @@
 'use strict';
 import { Meteor } from 'meteor/meteor';
 import DigitalOceanApi from 'digital-ocean-api';
+import Future from 'fibers/future';
 
 Meteor.startup(() => {
   // code to run on server at startup
@@ -8,8 +9,6 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	'spinUpNewVM': function() {
-		console.log('spin it');
-		console.log(Meteor.settings.digitalocean.apitoken);
 		var api = new DigitalOceanApi({
 			token: Meteor.settings.digitalocean.apitoken
 		});
@@ -25,11 +24,16 @@ Meteor.methods({
 			'user_data': null,
 			'private_networking': null
 		};
+
+		var fut = new Future();
+
 		api.createDroplet(requestBody, function(err, data) {
 			if (err) {
-				return false;
+				fut.throw('Error creating');
 			}
-			return data;
+			fut.return(data);
 		});
+
+		return fut.wait();
 	}
 });

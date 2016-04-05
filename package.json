@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "digital-ocean-api": "^0.2.0",
+    "fibers": "^1.0.10",
     "meteor-node-stubs": "~0.2.0"
   }
 }
