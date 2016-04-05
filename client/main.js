@@ -63,6 +63,10 @@ Template.main.helpers({
 	ip: function() {
 		var serverData = Template.instance().status.get().serverData;
 		return serverData.networks.v4[0].ip_address;
+	},
+	selfDestructTimeLeftHuman: function() {
+		// TODO: Return real value
+		return '5 hours 50 minutes and 10 seconds';
 	}
 });
 

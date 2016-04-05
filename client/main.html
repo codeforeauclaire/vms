@@ -3,8 +3,7 @@
 </head>
 
 <body>
-  <h1>Free Temporary Virtual Machines</h1>
-  <h2>For Code For Eau Claire</h2>
+  <h1>Virtual Machines <span>(For Code For Eau Claire)</span></h1>
 
   {{> main}}
   <br />
@@ -16,11 +15,12 @@
 
 
 <template name="main">
-	<h2>Server information</h2>
-	<br />
-	<br />
+	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
 		IP: {{ip}}
+		<br />
+		<br />
+		Machine will self destruct in {{selfDestructTimeLeftHuman}}
 		<br />
 		<br />
 		<button>Give me a new server</button>
@@ -31,6 +31,9 @@
 </template>
 
 <template name="info">
-	<h3>Other information</h3>
-	If you use this a lot please rent from <a href="https://www.digitalocean.com/">Digital Ocean</a>, servers start at under $0.01 per hour.
+	<h3>About these servers</h3>
+	Anthony is paying for them and they aren't meant as permanent development enviornments.
+	<br />
+	<br />
+	It's pretty easy to spin up servers just like these for yourself that will stick around using <a href="https://www.digitalocean.com/">Digital Ocean</a>, servers start at under $0.01 per hour.
 </template>
