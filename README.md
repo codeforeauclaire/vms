@@ -1,3 +1,11 @@
+## Getting started with this code
+
+1. Install meteor (Follow instructions at https://www.meteor.com/install)
+1. cd to root folder of your clone
+1. `meteor npm install`
+1. Copy ./settings/template.json somewhere private, providing your Digital Ocean api token
+1. `meteor --settings [Location of your settings file]`
+
 ## TODO
 
 1. Setup Documentation how to get started
