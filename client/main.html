@@ -12,8 +12,8 @@
 	</nav>
 	<div class="container">
 		{{> main}}
-		{{> authInstructions}}
-		{{> info}}
+		{{> auth}}
+		{{> about}}
 		<br />
 	</div>
 </body>
@@ -22,7 +22,9 @@
 <template name="main">
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
-		{{> connectingInstructions ip=ip}}
+		{{> info ip=ip}}
+		{{> connect ip=ip}}
+		{{> manage}}
 	{{/if}}
 	{{#unless ready}}
 		<span class="spin-container">
@@ -32,18 +34,26 @@
 	{{/unless}}
 </template>
 
-<template name="connectingInstructions">
+<template name="info">
+	<h3>Info</h3>
+	<p>
 		IP: {{ip}}
-		<h4>Connecting to your machine</h4>
-		<h5>Mac / Linux</h5>
-		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
-		<br />
-		<br />
-		<button class="btn btn-default">Give me a new machine</button> Machine will self destruct in about {{selfDestructTimeLeftHuman}}
+	</p>
 </template>
 
-<template name="authInstructions">
-	<h3>Authentication Setup Instructions</h3>
+<template name="connect">
+	<h3>Connect</h3>
+	<h5>Mac / Linux</h5>
+	<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+</template>
+
+<template name="manage">
+	<h3>Manage</h3>
+	<button class="btn btn-default">Give me a new machine</button> Machine will self destruct in about {{selfDestructTimeLeftHuman}}
+</template>
+
+<template name="auth">
+	<h3>Authenticate</h3>
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<!-- Nav tabs -->
@@ -93,9 +103,9 @@
 	</div>
 </template>
 
-<template name="info">
-	<h3>About these virtual machines</h3>
-	Anthony is paying for them and they aren't meant as permanent development environments.
+<template name="about">
+	<h3>About</h3>
+	Anthony is paying for these Virtual Machines and they aren't meant as permanent development environments.  Feel to use them for working on Code For Eau Claire for temporary needs, presentations, learning, testing, etc.
 	<br />
 	<br />
 	It's pretty easy to spin up new virtual machines just like these for yourself that will stick around using <a href="https://www.digitalocean.com/">Digital Ocean</a>. They start at under $0.01 per hour.
