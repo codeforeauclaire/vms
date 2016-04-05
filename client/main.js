@@ -140,7 +140,7 @@ Template.authInstructions.helpers({
 Template.main.events({
 	'click button' (event, instance) {
 		var msg = 'Are you sure you want to do this?' +
-			'  Your current server will be immediately destroyed.';
+			'  Your current machine will be immediately destroyed.';
 		if (confirm(msg)) {
 			var reactiveStatus = Template.instance().status;
 			var status = reactiveStatus.get();
