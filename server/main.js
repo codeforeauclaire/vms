@@ -9,6 +9,7 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	'spinUpNewVM': function() {
+		console.log('spingUpNewVM');
 		var api = new DigitalOceanApi({
 			token: Meteor.settings.digitalocean.apitoken
 		});
@@ -28,7 +29,7 @@ Meteor.methods({
 
 		api.createDroplet(requestBody, function(err, data) {
 			if (err) {
-				fut.throw('Error creating');
+				return fut.throw(err);
 			}
 			fut.return(data);
 		});
@@ -36,13 +37,14 @@ Meteor.methods({
 		return fut.wait();
 	},
 	'getVmInfo': function(serverId) {
+		console.log('getVmInfo:' + serverId);
 		var api = new DigitalOceanApi({
 			token: Meteor.settings.digitalocean.apitoken
 		});
 		var fut = new Future();
 		api.getDroplet(serverId, function(err, data) {
 			if (err) {
-				fut.throw('Error getting info');
+				return fut.throw(err);
 			}
 			fut.return(data);
 		});

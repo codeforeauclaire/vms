@@ -14,10 +14,12 @@
 
 ## TODO
 
+1. Figure out Digital Ocean 10 server spinning limitation, giving 500 errors
 1. Pretty this up, adding bootstrap
 1. Setup Documentation how to get started as a developer (display on main html)
  1. Instructions how to SSH into a server for any platform (link to something)
 1. Mock up UI for this whole thing
+1. Address use case of expired server, and local storage still has id
 1. Setup to accept Anthony's started settings to deploy to his mets
 1. Setup Jobs to destroy servers after it's been up for 1 hour
 1. Think through / review more / add more here as needed
