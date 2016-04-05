@@ -13,3 +13,4 @@
 1. Get this setup on vms.codeforeauclaire.org
 1. Add button to destroy the server (which does all them to create another)
  1. Later: Add throttling here
+1. Cleanup code!

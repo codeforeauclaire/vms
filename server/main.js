@@ -34,5 +34,18 @@ Meteor.methods({
 		});
 
 		return fut.wait();
+	},
+	'getVmInfo': function(serverId) {
+		var api = new DigitalOceanApi({
+			token: Meteor.settings.digitalocean.apitoken
+		});
+		var fut = new Future();
+		api.getDroplet(serverId, function(err, data) {
+			if (err) {
+				fut.throw('Error getting info');
+			}
+			fut.return(data);
+		});
+		return fut.wait();
 	}
 });

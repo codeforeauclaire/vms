@@ -8,12 +8,23 @@
 
   {{> main}}
   <br />
+  <br />
+  <br />
+  <br />
   {{> info}}
 </body>
 
 
 <template name="main">
-	Server status: {{status.human}}
+	Server status: {{status}}
+	{{#if ready}}
+		<h2>Server information</h2>
+		IP: {{ip}}
+	{{/if}}
+	<br />
+	<br />
+	<br />
+	<br />
 	<button>Click me</button>
 </template>
 
