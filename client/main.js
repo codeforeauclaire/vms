@@ -154,6 +154,9 @@ Template.main.helpers({
 Template.auth.helpers({
 	privateKey: function() {
 		return Meteor.settings.public.sshkey.private;
+	},
+	ppk: function() {
+		return Meteor.settings.public.sshkey.ppk;
 	}
 });
 

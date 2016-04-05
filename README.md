@@ -18,7 +18,7 @@
           1. Which will give you the fingerprint
 	  1. Generate ppk using PuttyGen (Install & open PuttyGen on windows >> Load your private key >> save private key as new.ppk)
 	      1. Put the putty private key in your settings.json with "\n" strings in place of newlines
-              1. `cat ./new.ppk |  while read line; do echo -n "$line\\n"; done`
+              1. `dos2unix ./new.ppk && cat ./new.ppk |  while read line; do echo -n "$line\\n"; done`
 1. `meteor --settings [Location of your settings file]`
 
 ## TODO
@@ -28,6 +28,7 @@
 1. Address use case of expired server, and local storage still has id
 1. Get all the way through commiting git code from the dev server?
  1. Need quick way to get credentials on there then...
+ 1. Don't forget to add instructions how to edit files in windows way? Putty ftp or something?
  1. Install a few packages quickly after it's spun up? Like git.
 1. Implement old server deletion as garbage collection, not jobs
  1. Query the DigitalOcean API to find servers over a set age, and delete them
