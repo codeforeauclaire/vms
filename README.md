@@ -23,6 +23,8 @@
 1. Setup to accept Anthony's started settings to deploy to his mets
 1. Setup Jobs to destroy servers after it's been up for 1 hour
 1. Think through / review more / add more here as needed
+1. Implement old server deletion as garbage collection, not jobs
+ 1. Query the DigitalOcean API to find servers over a set age, and delete them
 1. Add throttling to prevent people from adding too many
  1. At the client level?
  1. Add hard setting at the server level, at most 20 servers going at once
