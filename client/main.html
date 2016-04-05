@@ -22,13 +22,7 @@
 <template name="main">
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
-		IP: {{ip}}
-		<h4>Connecting to your machine</h4>
-		<h5>Mac / Linux</h5>
-		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
-		<br />
-		<br />
-		<button class="btn btn-default">Give me a new machine</button> Machine will self destruct in about {{selfDestructTimeLeftHuman}}
+		{{> connectingInstructions ip=ip}}
 	{{/if}}
 	{{#unless ready}}
 		<span class="spin-container">
@@ -36,6 +30,16 @@
 		</span>
 		{{loadingStatus}}
 	{{/unless}}
+</template>
+
+<template name="connectingInstructions">
+		IP: {{ip}}
+		<h4>Connecting to your machine</h4>
+		<h5>Mac / Linux</h5>
+		<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+		<br />
+		<br />
+		<button class="btn btn-default">Give me a new machine</button> Machine will self destruct in about {{selfDestructTimeLeftHuman}}
 </template>
 
 <template name="authInstructions">
