@@ -9,12 +9,18 @@ import './main.html';
 var getStatus = function() {
 	return JSON.parse(localStorage.getItem('status'));
 };
-var setStatus = function(statusSetTo, reactiveStatus) {
+var getSecondsToSelfDestruct = function(status) {
 	var key = 'created_at';
-	if (statusSetTo && statusSetTo.serverData && statusSetTo.serverData[key]) {
-		var serverShutdownAt = moment(statusSetTo.serverData[key]).add(5, 'hours');
-		statusSetTo.secondsToSelfDestruct = serverShutdownAt.diff(moment(), 'seconds');
+	if (status && status.serverData && status.serverData[key]) {
+		var serverShutdownAt = moment(status.serverData[key])
+			.add(Meteor.settings.public.serverlifespanhours, 'hours')
+			.subtract(20, 'minutes');
+		return serverShutdownAt.diff(moment(), 'seconds');
 	}
+	return false;
+};
+var setStatus = function(statusSetTo, reactiveStatus) {
+	statusSetTo.secondsToSelfDestruct = getSecondsToSelfDestruct(statusSetTo);
 	reactiveStatus.set(statusSetTo);
 	return localStorage.setItem('status', JSON.stringify(statusSetTo));
 };
@@ -54,6 +60,13 @@ var runPoller = function(serverId, reactiveStatus) {
 		});
 	}, 5000);
 };
+var runSelfDestructTimer = function(reactiveStatus) {
+	setInterval(function() {
+		var status = reactiveStatus.get();
+		status.secondsToSelfDestruct = getSecondsToSelfDestruct(status);
+		setStatus(status, reactiveStatus);
+	}, 1000);
+};
 var spinNewVM = function(reactiveStatus) {
 	setStatus({ human: 'Requesting to spin up a new server' }, reactiveStatus);
 	Meteor.call('spinUpNewVM', function(err, result) {
@@ -68,6 +81,7 @@ var spinNewVM = function(reactiveStatus) {
 		}
 		setStatus({ human: 'Spinning up a new server', serverData: result }, reactiveStatus);
 		runPoller(result.id, reactiveStatus);
+		runSelfDestructTimer(reactiveStatus);
 	});
 };
 var destroyOldVM = function(serverId, reactiveStatus) {
@@ -104,7 +118,9 @@ Template.main.onCreated(function() {
 			destroyOldVM(status.serverData.id, this.status);
 			return;
 		}
-		if (!isReady(status.serverData)) {
+		if (isReady(status.serverData)) {
+			runSelfDestructTimer(this.status);
+		} else {
 			if (status.serverData && status.serverData.id) {
 				runPoller(status.serverData.id, this.status);
 			}

@@ -3,6 +3,7 @@
 		"apitoken": ""
 	},
 	"public": {
+		"serverlifespanhours": 5,
 		"sshkey": {
 			"private":"",
 			"public":"",
