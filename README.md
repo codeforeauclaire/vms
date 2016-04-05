@@ -8,7 +8,7 @@
 
 ## TODO
 
-1. Setup Documentation how to get started
+1. Setup Documentation how to get started as a developer (display on main html)
  1. Instructions how to SSH into a server for any platform (link to something)
 1. Mock up UI for this whole thing
 1. Setup to accept Anthony's started settings to deploy to his mets
