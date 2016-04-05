@@ -20,11 +20,13 @@ Template.main.onCreated(function() {
 		Template.instance().status.set(getStatus());
 	} else {
 		var that = this;
-		setStatus('Requesting to spin up a new server', this.status);
+		setStatus({ human: 'Requesting to spin up a new server' }, this.status);
 		Meteor.call('spinUpNewVM', function(err, result) {
-			setStatus('Spinning up a new server', that.status);
-			console.log(err);
-			console.log(result);
+			if (err) {
+				setStatus({ human: 'Error spinning up a new server' }, that.status);
+				return;
+			}
+			setStatus({ human: 'Spinning up a new server', serverData: result }, that.status);
 		});
 	}
 });
