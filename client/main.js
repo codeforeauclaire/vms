@@ -28,16 +28,16 @@ Template.main.onCreated(function() {
 });
 
 Template.main.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-  status() {
-    return Template.instance().status.get();
-  }
+	counter: function() {
+		return Template.instance().counter.get();
+	},
+	status: function() {
+		return Template.instance().status.get();
+	}
 });
 
 Template.main.events({
-  'click button'(event, instance) {
-	console.log(Template.instance().status.get());
-  }
+	'click button' (event, instance) {
+		console.log(Template.instance().status.get());
+	}
 });
