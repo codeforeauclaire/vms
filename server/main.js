@@ -7,7 +7,8 @@ Meteor.startup(() => {
 
 Meteor.methods({
 	'spinUpNewVM': function() {
-		Meteor._sleepForMs(2000);
 		console.log('spin it');
+		console.log(Meteor.settings.digitalocean.apitoken);
+		Meteor._sleepForMs(2000);
 	}
 });

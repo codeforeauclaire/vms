@@ -1,4 +1,7 @@
 {
+	"digitalocean": {
+		"apitoken": ""
+	},
 	"public": {
 	}
 }
