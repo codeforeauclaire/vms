@@ -14,10 +14,11 @@ var setStatus = function(statusSetTo, reactiveStatus) {
 	return localStorage.setItem('status', JSON.stringify(statusSetTo));
 };
 var isReady = function(serverData) {
-	return serverData && serverData.status && (serverData.status === 'active');
+	return serverData &&
+			serverData.status &&
+			(serverData.status === 'active');
 };
 var runPoller = function(serverId, reactiveStatus) {
-	var that = this;
 	var poller = setInterval(function() {
 		Meteor.call('getVmInfo', serverId, function(err, result) {
 			if (err) {
@@ -64,6 +65,16 @@ var spinNewVM = function(reactiveStatus) {
 		runPoller(result.id, reactiveStatus);
 	});
 };
+var destroyOldVM = function(serverId, reactiveStatus, cb) {
+	setStatus(
+		{
+			human: 'Destroying existing server',
+			destroying: true,
+			serverData: reactiveStatus.get().serverData
+		},
+	reactiveStatus);
+	cb(false, 'Some json should go here');
+};
 
 Template.main.onCreated(function() {
 	this.status = new ReactiveVar();
@@ -88,7 +99,8 @@ Template.main.helpers({
 		return Template.instance().status.get().human;
 	},
 	ready: function() {
-		return isReady(Template.instance().status.get().serverData);
+		var status = Template.instance().status.get();
+		return isReady(status.serverData) && !status.destroying;
 	},
 	ip: function() {
 		var serverData = Template.instance().status.get().serverData;
@@ -106,8 +118,20 @@ Template.main.events({
 		var msg = 'Are you sure you want to do this?' +
 			'  Your current server will be immediately destroyed.';
 		if (confirm(msg)) {
-			// TODO: Implement this functionality
-			alert('TODO: Implement this functionality');
+			var reactiveStatus = Template.instance().status;
+			var status = reactiveStatus.get();
+			destroyOldVM(status.serverData.id, reactiveStatus, function(err, result) {
+				console.log(status);
+				if (err) {
+					setStatus(
+						{
+							human: 'Error destroying existing server'
+						},
+						reactiveStatus
+					);
+					return;
+				}
+			});
 		}
 	}
 });
