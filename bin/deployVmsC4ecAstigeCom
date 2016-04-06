@@ -14,5 +14,6 @@ SCRIPT_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 # * Git commit @ https://github.com/meteor/meteor/commit/c23a001d98875eb152cee6b5830066011b7380ad
 # * Perhaps an issue because we manually use fibers?
 # * Will get server logs errors, but not going to worry about it for now
+# * Issue opened @ https://github.com/meteor/meteor/issues/6720
 echo "Manually installing fibers 1.0.7 & restarting pm2 process (comments in this script)"
 ssh root@mets.zinid.com "(cd /root/Meteors/vms.c4ec.astige.com/bundle/programs/server && npm remove fibers && npm install fibers@1.0.7 --save && pm2 restart vms.c4ec.astige.com)"
