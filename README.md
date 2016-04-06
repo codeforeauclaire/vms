@@ -38,3 +38,4 @@
 1. Add hard throttling on server (values in settings.json)
  1. Max servers running at a time
  1. Max spin ups per given unit of time
+1. Auto generate a new server if timer is negative (Do destruct >> recreate cycle?)
