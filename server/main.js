@@ -6,7 +6,7 @@ import DigitalOceanApi from 'digital-ocean-api';
 import Future from 'fibers/future';
 
 function getApi(apiTokenNumber) {
-	var token = Meteor.settings.digitalocean.apitoken[apiTokenNumber];
+	var token = Meteor.settings.digitalocean.apitokens[apiTokenNumber];
 	return new DigitalOceanApi({ token: token });
 }
 
@@ -40,7 +40,7 @@ function selfDestructOldServers(apiTokenNumber) {
 }
 
 function selfDestructOldServersAllApiTokens() {
-	_.each(Meteor.settings.digitalocean.apitoken, function(apitoken, apiTokenNumber) {
+	_.each(Meteor.settings.digitalocean.apitokens, function(apitoken, apiTokenNumber) {
 		selfDestructOldServers(apiTokenNumber);
 	});
 };
@@ -86,7 +86,7 @@ Meteor.methods({
 				if (err) {
 					console.log(err);
 					// Problem creating a droplet. If we have another DO token / account, try it.
-					if (Meteor.settings.digitalocean.apitoken.length > (apiTokenNumber + 1)) {
+					if (Meteor.settings.digitalocean.apitokens.length > (apiTokenNumber + 1)) {
 						return create(apiTokenNumber + 1);
 					}
 					return fut.throw(err);
