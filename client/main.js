@@ -150,6 +150,9 @@ Template.main.helpers({
 	selfDestructTimeLeftHuman: function() {
 		var status = Template.instance().status.get();
 		return moment.duration(1000 * status.secondsToSelfDestruct).format('h:mm:ss');
+	},
+	privateKey: function() {
+		return Meteor.settings.public.sshkey.private;
 	}
 });
 Template.main.events({
