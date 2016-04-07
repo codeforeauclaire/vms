@@ -5,11 +5,15 @@ import { Meteor } from 'meteor/meteor';
 import DigitalOceanApi from 'digital-ocean-api';
 import Future from 'fibers/future';
 
+function getApi(ii) {
+	return new DigitalOceanApi({
+		token: Meteor.settings.digitalocean.apitoken[ii]
+	});
+}
+
 function selfDestructOldServers() {
 	console.log('selfDestructOldServers(...)');
-	var api = new DigitalOceanApi({
-		token: Meteor.settings.digitalocean.apitoken[0]
-	});
+	var api = getApi(0);
 	api.listDroplets(function(err, droplets) {
 		if (err) {
 			throw err;
@@ -46,10 +50,7 @@ Meteor.startup(() => {
 Meteor.methods({
 	'spinUpNewVM': function() {
 		console.log('spinUpNewVM');
-		// TODO: Abstract API setup
-		var api = new DigitalOceanApi({
-			token: Meteor.settings.digitalocean.apitoken[0]
-		});
+		var api = getApi(0);
 		var requestBody = {
 			name: 'vms-virtual-machine',
 			region: 'nyc3',
@@ -75,9 +76,7 @@ Meteor.methods({
 	},
 	'getVmInfo': function(serverId) {
 		console.log('getVmInfo:' + serverId);
-		var api = new DigitalOceanApi({
-			token: Meteor.settings.digitalocean.apitoken[0]
-		});
+		var api = getApi(0);
 		var fut = new Future();
 		api.getDroplet(serverId, function(err, data) {
 			if (err) {
@@ -89,9 +88,7 @@ Meteor.methods({
 	},
 	'destroyOldVM': function(serverId) {
 		console.log('destroyOldVM:' + serverId);
-		var api = new DigitalOceanApi({
-			token: Meteor.settings.digitalocean.apitoken[0]
-		});
+		var api = getApi(0);
 		var fut = new Future();
 		api.deleteDroplet(serverId, function(err, data) {
 			if (err) {
