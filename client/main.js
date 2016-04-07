@@ -36,7 +36,7 @@ var runPoller = function(serverId, apiTokenNumber, reactiveStatus) {
 			if (err) {
 				setStatus(
 					{
-						human: 'Error getting server info'
+						human: 'Error getting machine info'
 					},
 				reactiveStatus);
 			}
@@ -52,7 +52,7 @@ var runPoller = function(serverId, apiTokenNumber, reactiveStatus) {
 				setStatus(
 					{
 						estimatedSecondsLeft: estimatedSecondsLeft,
-						human: 'Server info received, awaiting active status' +
+						human: 'Machine info received, awaiting active status' +
 							' (expected to finish within ' + estimatedSecondsLeft + ' seconds)',
 						serverData: result
 					},
@@ -69,18 +69,18 @@ var runSelfDestructTimer = function(reactiveStatus) {
 	}, 1000);
 };
 var spinNewVM = function(reactiveStatus) {
-	setStatus({ human: 'Requesting to spin up a new server' }, reactiveStatus);
+	setStatus({ human: 'Requesting to spin up a new machine' }, reactiveStatus);
 	Meteor.call('spinUpNewVM', function(err, result) {
 		if (err) {
 			setStatus(
 				{
-					human: 'Error spinning up a new server'
+					human: 'Error spinning up a new machine'
 				},
 				reactiveStatus
 			);
 			return;
 		}
-		setStatus({ human: 'Spinning up a new server', serverData: result }, reactiveStatus);
+		setStatus({ human: 'Spinning up a new machine', serverData: result }, reactiveStatus);
 		runPoller(result.id, result.apiTokenNumber, reactiveStatus);
 		runSelfDestructTimer(reactiveStatus);
 	});
@@ -88,7 +88,7 @@ var spinNewVM = function(reactiveStatus) {
 var destroyOldVM = function(serverId, apiTokenNumber, reactiveStatus) {
 	setStatus(
 		{
-			human: 'Destroying existing server',
+			human: 'Destroying existing machine',
 			destroying: true,
 			serverData: reactiveStatus.get().serverData
 		},
@@ -97,7 +97,7 @@ var destroyOldVM = function(serverId, apiTokenNumber, reactiveStatus) {
 		if (err) {
 			setStatus(
 				{
-					human: 'Error destroying existing server (we\'ll sping a new one anyways)',
+					human: 'Error destroying existing machine (we\'ll sping a new one anyways)',
 					serverData: reactiveStatus.get().serverData,
 					destroying: true
 				},
