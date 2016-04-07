@@ -31,8 +31,10 @@ Digital Ocean seems to stop at 10 servers per account. To mitigate this vms supp
 4. https://cloud.digitalocean.com/settings/profile >> Edit Profile >> Add Phone number (recovery)
 5. https://cloud.digitalocean.com/settings/billing >> Fill in
 6. https://cloud.digitalocean.com/settings/billing >> Set Billing Alerts
-7. https://cloud.digitalocean.com/settings/security >> Add the same public key
-8. https://cloud.digitalocean.com/settings/api/tokens >> Generate New Token >> vms >> add to settings.json
+7. https://cloud.digitalocean.com/settings/security >> Add the same public key >> add to settings.json @ fingerprints
+8. https://cloud.digitalocean.com/settings/api/tokens >> Generate New Token >> vms >> add to settings.json @ apitokens
+
+When done setting up all config, be sure you test all the Digital Ocean accounts. It's easiest to manually modify code to do this. Search code for 'TOKEN-AND-FINGERPRINT-TESTER'
 
 ## TODO
 

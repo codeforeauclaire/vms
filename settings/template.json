@@ -8,7 +8,7 @@
 			"private":"",
 			"ppk":"",
 			"public":"",
-			"fingerprint":""
+			"fingerprints": ["", "", ...]
 		}
 	}
 }

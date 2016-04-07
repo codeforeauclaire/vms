@@ -30,9 +30,9 @@ var isReady = function(serverData) {
 			serverData.status &&
 			(serverData.status === 'active');
 };
-var runPoller = function(serverId, reactiveStatus) {
+var runPoller = function(serverId, apiTokenNumber, reactiveStatus) {
 	var poller = setInterval(function() {
-		Meteor.call('getVmInfo', serverId, function(err, result) {
+		Meteor.call('getVmInfo', serverId, apiTokenNumber, function(err, result) {
 			if (err) {
 				setStatus(
 					{
@@ -81,11 +81,11 @@ var spinNewVM = function(reactiveStatus) {
 			return;
 		}
 		setStatus({ human: 'Spinning up a new server', serverData: result }, reactiveStatus);
-		runPoller(result.id, reactiveStatus);
+		runPoller(result.id, result.apiTokenNumber, reactiveStatus);
 		runSelfDestructTimer(reactiveStatus);
 	});
 };
-var destroyOldVM = function(serverId, reactiveStatus) {
+var destroyOldVM = function(serverId, apiTokenNumber, reactiveStatus) {
 	setStatus(
 		{
 			human: 'Destroying existing server',
@@ -93,7 +93,7 @@ var destroyOldVM = function(serverId, reactiveStatus) {
 			serverData: reactiveStatus.get().serverData
 		},
 	reactiveStatus);
-	Meteor.call('destroyOldVM', serverId, function(err, res) {
+	Meteor.call('destroyOldVM', serverId, apiTokenNumber, function(err, res) {
 		if (err) {
 			setStatus(
 				{
@@ -116,14 +116,14 @@ Template.main.onCreated(function() {
 	if (status) {
 		this.status.set(status);
 		if (status.destroying) {
-			destroyOldVM(status.serverData.id, this.status);
+			destroyOldVM(status.serverData.id, status.serverData.apiTokenNumber, this.status);
 			return;
 		}
 		if (isReady(status.serverData)) {
 			runSelfDestructTimer(this.status);
 		} else {
 			if (status.serverData && status.serverData.id) {
-				runPoller(status.serverData.id, this.status);
+				runPoller(status.serverData.id, status.serverData.apiTokenNumber, this.status);
 			}
 		}
 	} else {
@@ -181,7 +181,7 @@ Template.main.events({
 		if (confirm(msg)) {
 			var reactiveStatus = Template.instance().status;
 			var status = reactiveStatus.get();
-			destroyOldVM(status.serverData.id, reactiveStatus);
+			destroyOldVM(status.serverData.id, status.serverData.apiTokenNumber, reactiveStatus);
 		}
 	}
 });

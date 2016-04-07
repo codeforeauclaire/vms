@@ -5,15 +5,14 @@ import { Meteor } from 'meteor/meteor';
 import DigitalOceanApi from 'digital-ocean-api';
 import Future from 'fibers/future';
 
-function getApi(ii) {
-	return new DigitalOceanApi({
-		token: Meteor.settings.digitalocean.apitoken[ii]
-	});
+function getApi(apiTokenNumber) {
+	var token = Meteor.settings.digitalocean.apitoken[apiTokenNumber];
+	return new DigitalOceanApi({ token: token });
 }
 
-function selfDestructOldServers() {
-	console.log('selfDestructOldServers(...)');
-	var api = getApi(0);
+function selfDestructOldServers(apiTokenNumber) {
+	console.log('selfDestructOldServers(' + apiTokenNumber + ')');
+	var api = getApi(apiTokenNumber);
 	api.listDroplets(function(err, droplets) {
 		if (err) {
 			throw err;
@@ -40,23 +39,27 @@ function selfDestructOldServers() {
 	});
 }
 
+function selfDestructOldServersAllApiTokens() {
+	_.each(Meteor.settings.digitalocean.apitoken, function(apitoken, apiTokenNumber) {
+		selfDestructOldServers(apiTokenNumber);
+	});
+};
+
 Meteor.startup(() => {
-	selfDestructOldServers();
+	selfDestructOldServersAllApiTokens();
 
 	// Self destruct old servers every 10 minutes
-	setInterval(selfDestructOldServers, 10 * 60 * 1000);
+	setInterval(selfDestructOldServersAllApiTokens, 10 * 60 * 1000);
 });
 
 Meteor.methods({
 	'spinUpNewVM': function() {
 		console.log('spinUpNewVM');
-		var api = getApi(0);
 		var requestBody = {
 			name: 'vms-virtual-machine',
 			region: 'nyc3',
 			size: '512mb',
 			image: 'ubuntu-14-04-x64',
-			'ssh_keys': [ Meteor.settings.public.sshkey.fingerprint ],
 			backups: false,
 			ipv6: false,
 			'user_data': null,
@@ -65,35 +68,60 @@ Meteor.methods({
 
 		var fut = new Future();
 
-		api.createDroplet(requestBody, function(err, data) {
-			if (err) {
-				return fut.throw(err);
+		// Call recursively returning in the future when successful or final failure
+		var create = function(apiTokenNumber) {
+			console.log('* create(' + apiTokenNumber + ')');
+			// TOKEN-AND-FINGERPRINT-TESTER
+			// * Uncomment and tweak number to test different DigOcean apiTokenNumber
+			/*
+			if (apiTokenNumber < 1) {
+				return create(apiTokenNumber + 1);
 			}
-			fut.return(data);
-		});
+			*/
+
+			var api = getApi(apiTokenNumber);
+			var key = 'ssh_keys';
+			requestBody[key] = [ Meteor.settings.public.sshkey.fingerprints[apiTokenNumber] ];
+			api.createDroplet(requestBody, function(err, data) {
+				if (err) {
+					console.log(err);
+					// Problem creating a droplet. If we have another DO token / account, try it.
+					if (Meteor.settings.digitalocean.apitoken.length > (apiTokenNumber + 1)) {
+						return create(apiTokenNumber + 1);
+					}
+					return fut.throw(err);
+				}
+				// TODO: Abstract this tagging on on apiTokenNumber as used in a all methods?
+				data.apiTokenNumber = apiTokenNumber;
+				return fut.return(data);
+			});
+		}
+		create(0);
 
 		return fut.wait();
 	},
-	'getVmInfo': function(serverId) {
-		console.log('getVmInfo:' + serverId);
-		var api = getApi(0);
+	'getVmInfo': function(serverId, apiTokenNumber) {
+		console.log('getVmInfo(' + serverId + ',' + apiTokenNumber + ')');
+		var api = getApi(apiTokenNumber);
 		var fut = new Future();
 		api.getDroplet(serverId, function(err, data) {
 			if (err) {
 				return fut.throw(err);
 			}
+			data.apiTokenNumber = apiTokenNumber;
 			fut.return(data);
 		});
 		return fut.wait();
 	},
-	'destroyOldVM': function(serverId) {
-		console.log('destroyOldVM:' + serverId);
-		var api = getApi(0);
+	'destroyOldVM': function(serverId, apiTokenNumber) {
+		console.log('destroyOldVM(' + serverId + ',' + apiTokenNumber + ')');
+		var api = getApi(apiTokenNumber);
 		var fut = new Future();
 		api.deleteDroplet(serverId, function(err, data) {
 			if (err) {
 				return fut.throw(err);
 			}
+			data.apiTokenNumber = apiTokenNumber;
 			fut.return(data);
 		});
 		return fut.wait();
