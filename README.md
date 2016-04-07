@@ -48,6 +48,8 @@ When done setting up all config, be sure you test all the Digital Ocean accounts
 
 1. Cleanup code
 1. Give a retry button when stuck in an error'd state
+1. Try to fix Fibers issue hack with Meteor 1.3.1 >> update deploy scripts workaround
+ 1. Notes are in /bin/anthony/deployC* with github issue raised, update that after trying
 1. Make wait after server status is active another 10 seconds (sometimes can't ssh in right away)
 1. Add UI clear for select all on pre boxes when clicked
 1. Add hard throttling on server (values in settings.json)
