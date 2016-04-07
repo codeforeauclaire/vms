@@ -8,7 +8,7 @@ while [ -h "$SOURCE" ]; do
 done
 SCRIPT_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
-(cd $SCRIPT_PATH/.. && mets-deploy vms.codeforeauclaire.org)
+(cd $SCRIPT_PATH/../.. && mets-deploy vms.codeforeauclaire.org)
 
 # Mets doesn't like Fibers 1.0.8 which Meteor seems to run on now
 # * Git commit @ https://github.com/meteor/meteor/commit/c23a001d98875eb152cee6b5830066011b7380ad

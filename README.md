@@ -21,6 +21,19 @@
               1. `dos2unix ./new.ppk && cat ./new.ppk |  while read line; do echo -n "$line\\n"; done`
 1. `meteor --settings [Location of your settings file]`
 
+## Production setup
+
+Digital Ocean seems to stop at 10 servers per account. To mitigate this vms supports multiple api tokens.  Be warned that Digital Ocean may not like if you setup more than 2-3 accounts with the same billing information, and you may have to verify later setup accounts. Things to remember with each account you setup:
+
+1. If you're using a gmail account, just add a +2, +3, ... to the end of your email for a unique registration address.
+2. Save your login somewhere smart like LastPass, test the save works
+3. Confirm your email address with link they send
+4. https://cloud.digitalocean.com/settings/profile >> Edit Profile >> Add Phone number (recovery)
+5. https://cloud.digitalocean.com/settings/billing >> Fill in
+6. https://cloud.digitalocean.com/settings/billing >> Set Billing Alerts
+7. https://cloud.digitalocean.com/settings/security >> Add the same public key
+8. https://cloud.digitalocean.com/settings/api/tokens >> Generate New Token >> vms >> add to settings.json
+
 ## TODO
 
 1. Get on vms.codeforeauclaire.org (move from vms.c4ec.astige.com)

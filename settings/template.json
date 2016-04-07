@@ -1,6 +1,6 @@
 {
 	"digitalocean": {
-		"apitoken": ""
+		"apitokens": ["", "", ...]
 	},
 	"public": {
 		"serverlifespanhours": 5,
