@@ -62,6 +62,7 @@ Meteor.methods({
 			image: 'ubuntu-14-04-x64',
 			backups: false,
 			ipv6: false,
+			'ssh_keys': [ Meteor.settings.public.sshkey.fingerprint ],
 			'user_data': null,
 			'private_networking': null
 		};
@@ -80,8 +81,6 @@ Meteor.methods({
 			*/
 
 			var api = getApi(apiTokenNumber);
-			var key = 'ssh_keys';
-			requestBody[key] = [ Meteor.settings.public.sshkey.fingerprints[apiTokenNumber] ];
 			api.createDroplet(requestBody, function(err, data) {
 				if (err) {
 					console.log(err);
