@@ -23,7 +23,7 @@
 
 ## Production setup
 
-Digital Ocean seems to stop at 10 servers per account. To mitigate this vms supports multiple api tokens.  Be warned that Digital Ocean may not like if you setup more than 2-3 accounts with the same billing information, and you may have to verify later setup accounts. Things to remember with each account you setup:
+Digital Ocean limits the number of droplets per account to 10 by default. To mitigate this vms supports multiple api tokens. Be warned that Digital Ocean may not like if you setup more than 2 accounts with the same billing information, and you may have to verify later setup accounts. Steps to take for each account you setup:
 
 1. If you're using a gmail account, just add a +2, +3, ... to the end of your email for a unique registration address.
 2. Save your login somewhere smart like LastPass, test the save works
@@ -34,7 +34,9 @@ Digital Ocean seems to stop at 10 servers per account. To mitigate this vms supp
 7. https://cloud.digitalocean.com/settings/security >> Add the same public key (Confirm you have the same fingerprint in settings.json @ fingerprints)
 8. https://cloud.digitalocean.com/settings/api/tokens >> Generate New Token >> vms >> add to settings.json @ apitokens
 
-When done setting up all config, be sure you test all the Digital Ocean accounts. It's easiest to manually modify code to do this. Search code for 'TOKEN-AND-FINGERPRINT-TESTER'
+When done setting up all config, be sure you test all the Digital Ocean accounts. It's easiest to manually modify code to do this. Search code for 'TOKEN-AND-FINGERPRINT-TESTER'.
+
+Alternatively or additionally you may contact Digital Ocean support to request an increase in the number of Droplets they allow on your account. They granted me up to 20 with no problem on one account.
 
 ## TODO
 
@@ -52,7 +54,5 @@ When done setting up all config, be sure you test all the Digital Ocean accounts
  1. Notes are in /bin/anthony/deployC* with github issue raised, update that after trying
 1. Make wait after server status is active another 10 seconds (sometimes can't ssh in right away)
 1. Add UI clear for select all on pre boxes when clicked
-1. Add hard throttling on server (values in settings.json)
- 1. Max servers running at a time
- 1. Max spin ups per given unit of time
+1. Add hard throttling on max spin ups per unit of time (put values in settings.json)
 1. Auto generate a new server if timer is negative (Do destruct >> recreate cycle?)
