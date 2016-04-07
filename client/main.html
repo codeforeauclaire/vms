@@ -72,23 +72,34 @@
 					<p>3) When prompted for the user name, type in root</p>
 
 					<br />
-					<p><strong>Extra: How to transfer files to the remote machine</strong></p>
-					<p>1) Start >> cmd</p>
-					<p>2) Run this to copy a file to root's home directory</p>
-					<pre>pscp source_file_name root@{{ip}}:/root/destination_file_name</pre>
+					<p><strong>Want to learn more about working with the remote machine?</strong></p>
+					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseTransfer" aria-expanded="false" aria-controls="collapseTransfer">
+						Transfer files
+					 </a>
+					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
+						Edit files
+					 </a>
+					<div class="collapse" id="collapseTransfer">
+						<p><strong>How to transfer files to the remote machine</strong></p>
+						<p>1) Start >> cmd</p>
+						<p>2) Run this to copy a file to root's home directory</p>
+						<pre>pscp source_file_name root@{{ip}}:/root/destination_file_name</pre>
 
-					<br />
-					<p><strong>Extra 2: How to edit files on the remote machine directly</strong></p>
-					<p>1) Download <a href="https://notepad-plus-plus.org/download/">NotePad++</a> (Installer recomended) >> Install >> Run</p>
-					<p>2) Plugins >> Plugin Manager >> Show Plugin Manager >> Check NppFTP >> Install >> restart</p>
-					<p>3) Plugins >> NppFTP >> Show NppFTP Window</p>
-					<p>4) Settings (gear icon) >> Profile Settings >> Add new >> Name with ip</p>
-					<p>5) Configure Connection tab: { Hostname: (IP address), Connection Type: 'SFTP', Username: 'root' }</p>
-					<p>6) Configure Authentication tab: Check 'Try private key...' >> Uncheck 'Try password...' >> Save the below private key then select it for 'Private key file'</p>
-					<pre>{{privateKey}}</pre>
-					<p>7) Close</p>
-					<p>8) Connect (link/plug icon) >> connect</p>
-					<p>You can now double click files to open them, and hit Ctrl+S to save which will save the remote Machine</p>
+					</div>
+
+					<div class="collapse" id="collapseEdit">
+						<p><strong>How to edit files on the remote machine directly</strong></p>
+						<p>1) Download <a href="https://notepad-plus-plus.org/download/">NotePad++</a> (Installer recomended) >> Install >> Run</p>
+						<p>2) Plugins >> Plugin Manager >> Show Plugin Manager >> Check NppFTP >> Install >> restart</p>
+						<p>3) Plugins >> NppFTP >> Show NppFTP Window</p>
+						<p>4) Settings (gear icon) >> Profile Settings >> Add new >> Name with ip</p>
+						<p>5) Configure Connection tab: { Hostname: (IP address), Connection Type: 'SFTP', Username: 'root' }</p>
+						<p>6) Configure Authentication tab: Check 'Try private key...' >> Uncheck 'Try password...' >> Save the below private key then select it for 'Private key file'</p>
+						<pre>{{privateKey}}</pre>
+						<p>7) Close</p>
+						<p>8) Connect (link/plug icon) >> connect</p>
+						<p>You can now double click files to open them, and hit Ctrl+S to save them to the remote machine</p>
+					</div>
 				</div>
 			</div>
 		</div>
