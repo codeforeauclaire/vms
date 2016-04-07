@@ -94,7 +94,7 @@ Meteor.methods({
 				data.apiTokenNumber = apiTokenNumber;
 				return fut.return(data);
 			});
-		}
+		};
 		create(0);
 
 		return fut.wait();
