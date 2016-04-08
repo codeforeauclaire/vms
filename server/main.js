@@ -18,9 +18,14 @@ function selfDestructOldServers(apiTokenNumber) {
 			throw err;
 		}
 		_.each(droplets, function(droplet) {
+			var hoursLive = Meteor.settings.public.serverlifespanhours;
+			// Larger servers only get 1/2 the life
+			if (droplet.memory !== 512) {
+				hoursLive /= 2;
+			}
 			var key = 'created_at';
 			var serverShutdownAfter = moment(droplet[key])
-				.add(Meteor.settings.public.serverlifespanhours, 'hours')
+				.add(hoursLive, 'hours')
 				.subtract(20, 'minutes');
 			var pastShutdownAfter = (moment().diff(serverShutdownAfter) > 0);
 

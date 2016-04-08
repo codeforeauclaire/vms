@@ -13,8 +13,13 @@ var getStatus = function() {
 var getSecondsToSelfDestruct = function(status) {
 	var key = 'created_at';
 	if (status && status.serverData && status.serverData[key]) {
+		var hoursLive = Meteor.settings.public.serverlifespanhours;
+		// Larger servers only get 1/2 the life
+		if (status.serverData.memory !== 512) {
+			hoursLive /= 2;
+		}
 		var serverShutdownAt = moment(status.serverData[key])
-			.add(Meteor.settings.public.serverlifespanhours, 'hours')
+			.add(hoursLive, 'hours')
 			.subtract(20, 'minutes');
 		return serverShutdownAt.diff(moment(), 'seconds');
 	}
