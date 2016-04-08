@@ -68,9 +68,9 @@ var runSelfDestructTimer = function(reactiveStatus) {
 		setStatus(status, reactiveStatus);
 	}, 1000);
 };
-var spinNewVM = function(reactiveStatus) {
+var spinNewVM = function(reactiveStatus, newSize) {
 	setStatus({ human: 'Requesting to spin up a new machine' }, reactiveStatus);
-	Meteor.call('spinUpNewVM', function(err, result) {
+	Meteor.call('spinUpNewVM', newSize, function(err, result) {
 		if (err) {
 			setStatus(
 				{
@@ -85,7 +85,10 @@ var spinNewVM = function(reactiveStatus) {
 		runSelfDestructTimer(reactiveStatus);
 	});
 };
-var destroyOldVM = function(serverId, apiTokenNumber, reactiveStatus) {
+// Too many params ignored
+var destroyOldVM = function( // jshint ignore:line
+	serverId, apiTokenNumber, newSize, reactiveStatus
+) {
 	setStatus(
 		{
 			human: 'Destroying existing machine',
@@ -103,10 +106,10 @@ var destroyOldVM = function(serverId, apiTokenNumber, reactiveStatus) {
 				},
 				reactiveStatus
 			);
-			spinNewVM(reactiveStatus);
+			spinNewVM(reactiveStatus, newSize);
 			return;
 		}
-		spinNewVM(reactiveStatus);
+		spinNewVM(reactiveStatus, newSize);
 	});
 };
 
@@ -127,7 +130,7 @@ Template.main.onCreated(function() {
 			}
 		}
 	} else {
-		spinNewVM(this.status);
+		spinNewVM(this.status, '512mb');
 	}
 });
 
@@ -174,14 +177,25 @@ Template.auth.events({
 	}
 });
 
+var destroy = function(newSize) {
+	var msg = 'Are you sure you want to do this?\n' +
+		'  Your current machine will be immediately destroyed.';
+	if (confirm(msg)) {
+		var reactiveStatus = Template.instance().status;
+		var status = reactiveStatus.get();
+		destroyOldVM(
+			status.serverData.id,
+			status.serverData.apiTokenNumber,
+			newSize,
+			reactiveStatus
+		);
+	}
+};
 Template.main.events({
-	'click button' (event, instance) {
-		var msg = 'Are you sure you want to do this?' +
-			'  Your current machine will be immediately destroyed.';
-		if (confirm(msg)) {
-			var reactiveStatus = Template.instance().status;
-			var status = reactiveStatus.get();
-			destroyOldVM(status.serverData.id, status.serverData.apiTokenNumber, reactiveStatus);
-		}
+	'click button.new-512mb' (event, instance) {
+		destroy('512mb');
+	},
+	'click button.new-1gb' (event, instance) {
+		destroy('1gb');
 	}
 });

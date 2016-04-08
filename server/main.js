@@ -43,7 +43,7 @@ function selfDestructOldServersAllApiTokens() {
 	_.each(Meteor.settings.digitalocean.apitokens, function(apitoken, apiTokenNumber) {
 		selfDestructOldServers(apiTokenNumber);
 	});
-};
+}
 
 Meteor.startup(() => {
 	selfDestructOldServersAllApiTokens();
@@ -53,12 +53,15 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
-	'spinUpNewVM': function() {
+	'spinUpNewVM': function(size) {
+		if ( (size !== '512mb') && (size !== '1gb') ) {
+			throw new Error('invalid-input', 'Only 512mb and 1gb sizes allowed');
+		}
 		console.log('spinUpNewVM');
 		var requestBody = {
 			name: 'vms-virtual-machine',
 			region: 'nyc3',
-			size: '512mb',
+			size: size,
 			image: 'ubuntu-14-04-x64',
 			backups: false,
 			ipv6: false,
