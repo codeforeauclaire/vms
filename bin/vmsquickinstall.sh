@@ -24,6 +24,6 @@ curl https://install.meteor.com/ | sh
 git clone https://github.com/codeforeauclaire/vms.git /root/vms
 
 # Install npm stuff for Meteor locally
-meteor npm install
+(cd /root/vms && meteor npm install)
 
 } # this ensures the entire script is downloaded and run #
