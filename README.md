@@ -16,7 +16,7 @@
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
  
-Note that this won't actually instantiate servers, but you can contribute to the UI this way.
+Note: setting.json is required to spin up virtual machines, but you can contribute to the UI without worrying about that. Contributing notes below have full setup instructions.
 
 ## Contributing (Setting up a full dev enviornment)
 
