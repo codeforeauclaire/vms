@@ -24,7 +24,7 @@ Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
 1. `meteor npm install`
-1. Copy `./settings/template.json` to somewhere private names something like `settings.json`
+1. Copy `./settings/template.json` to somewhere private named something like `settings.json`
  1. Get your Digital Ocean api token from https://cloud.digitalocean.com/settings/api/tokens
  1. Use `ssh-keygen -t rsa -f new` to create a pub/private key
       1. Put the private key in your settings.json with "\n" strings in place of newlines
