@@ -11,7 +11,7 @@
 1. Run app
  1. `cd ~/vms`
  1. `meteor`
-      1. Warning: The meteor dev enviornment is resource hungry. The first run will go especially slow (5 minutes?) on a vms machine.
+      1. Warning: The meteor dev enviornment is resource hungry. The first run will go especially slow (5+ minutes?) on a vms machine.
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
 
