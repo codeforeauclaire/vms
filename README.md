@@ -15,9 +15,9 @@
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
 
-Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that. Contributing notes below have full setup instructions.
+Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
 
-## Contributing (Setting up a full dev enviornment)
+## Full development enviornment setup instructions
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
