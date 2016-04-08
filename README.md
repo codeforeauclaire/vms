@@ -9,7 +9,7 @@
 **WORK IN PROGRESS**
 
 1. Create a new Digital Ocean Ubuntu 14.04.4 machine >> SSH in >> Run (or read) vms quick install
- 1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/foodtrucks-consumer-ui/bin/vmsquickinstall.sh | bash`
+ 1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/bin/vmsquickinstall.sh | bash`
 1. Run app
  1. `(cd ~/vms && meteor)`
  1. Load http://{vms-ip}:3000 in your browser
