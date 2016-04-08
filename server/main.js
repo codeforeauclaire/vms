@@ -50,7 +50,15 @@ function selfDestructOldServersAllApiTokens() {
 	});
 }
 
+// TODO: Make this, and other stuff isomorphic; DRY
+function hasSettings() {
+	return (_.size(Meteor.settings.public) > 0);
+}
+
 Meteor.startup(() => {
+	if (!hasSettings()) {
+		return false;
+	}
 	selfDestructOldServersAllApiTokens();
 
 	// Self destruct old servers every 10 minutes

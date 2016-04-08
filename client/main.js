@@ -1,5 +1,5 @@
 'use strict';
-/* global Meteor, moment */
+/* global Meteor, moment, _ */
 
 import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
@@ -7,6 +7,9 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import selectText from './selectText.js';
 import './main.html';
 
+var hasSettings = function() {
+	return (_.size(Meteor.settings.public) > 0);
+};
 var getStatus = function() {
 	return JSON.parse(localStorage.getItem('status'));
 };
@@ -119,6 +122,9 @@ var destroyOldVM = function( // jshint ignore:line
 };
 
 Template.main.onCreated(function() {
+	if (!hasSettings()) {
+		return false;
+	}
 	this.status = new ReactiveVar();
 	var status = getStatus();
 	if (status) {
@@ -140,6 +146,7 @@ Template.main.onCreated(function() {
 });
 
 Template.main.helpers({
+	hasSettings: hasSettings,
 	counter: function() {
 		return Template.instance().counter.get();
 	},

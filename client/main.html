@@ -21,6 +21,12 @@
 
 
 <template name="main">
+	{{#unless hasSettings}}
+		<br />
+		<div class="alert alert-warning" role="alert">
+			<h3>Hello developer. You're running without settings. Some stuff won't work. Some errors will occur. You can kinda work on the UI though with it as is.</h3>
+		</div>
+	{{/unless}}
 	<h2>Your Virtual Machine</h2>
 	{{#if ready}}
 		{{> connect ip=ip privateKey=privateKey}}
