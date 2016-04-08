@@ -4,7 +4,20 @@
 * Diverse projectis require clean enviornment to do follow along demos and test READMEs
 * Quick testing of one off ideas
 
-## Contributing (Setting up a dev enviornment)
+## VMS development enviornment quick setup instructions
+
+**WORK IN PROGRESS**
+
+1. Create a new Digital Ocean Ubuntu 14.04.4 machine >> SSH in >> Run (or read) vms quick install
+ 1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/foodtrucks-consumer-ui/bin/vmsquickinstall.sh | bash`
+1. Run app
+ 1. `(cd ~/vms && meteor)`
+ 1. Load http://{vms-ip}:3000 in your browser
+ 1. Edit a file >> see changes intantly in your browser
+ 
+Note that this won't actually instantiate servers, but you can contribute to the UI this way.
+
+## Contributing (Setting up a full dev enviornment)
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
