@@ -15,7 +15,7 @@
  1. `meteor`
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
- 
+
 Note: setting.json is required to spin up virtual machines, but you can contribute to the UI without worrying about that. Contributing notes below have full setup instructions.
 
 ## Contributing (Setting up a full dev enviornment)
@@ -66,6 +66,7 @@ Alternatively or additionally you may contact Digital Ocean support to request a
 1. Give a retry button when stuck in an error'd state
 1. Add description to UI somewhere that 1gb machines last 1/2 the length as 512mb machines
  1. And to be curtious and only use 1gb machines when needed. Suggest use swap space in your quickvms scripts like in this one's?
+1. Indicate in ui the current machine size
 1. Make wait after server status is active another 10 seconds (sometimes can't ssh in right away)
 1. Add UI clear for select all on pre boxes when clicked
 1. Add hard throttling on max spin ups per unit of time (put values in settings.json)
