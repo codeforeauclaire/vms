@@ -11,7 +11,8 @@
 1. Create a new Digital Ocean Ubuntu 14.04.4 machine >> SSH in >> Run (or read) vms quick install
  1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/bin/vmsquickinstall.sh | bash`
 1. Run app
- 1. `(cd ~/vms && meteor)`
+ 1. `cd ~/vms`
+ 1. `meteor`
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
  
