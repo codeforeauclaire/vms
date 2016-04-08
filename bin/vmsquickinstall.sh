@@ -6,7 +6,7 @@
 sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y git
 
 # Setup swap (which will enable on reboot)
-# * We need more than 512MB for Meteor to work. Warning: it may be slow on the small vms instances
+# * We need more than 512MB of ram for Meteor to work. Warning: it may be slow on the small vms instances
 # * https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-14-04
 sudo fallocate -l 4G /swapfile
 sudo chmod 600 /swapfile
