@@ -53,14 +53,6 @@ Alternatively or additionally you may contact Digital Ocean support to request a
 
 ## TODO
 
-1. Get on vms.codeforeauclaire.org (move from vms.c4ec.astige.com)
- 1. Await DNS
- 1. Deploy new site
- 1. Redirect old domain (for a week maybe)
- 1. Remove old site (and deploy script for old domain)
-
-### TODO: Later?
-
 1. Cleanup code
 1. Give a retry button when stuck in an error'd state
 1. Add description to UI somewhere that 1gb machines last 1/2 the length as 512mb machines
