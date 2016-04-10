@@ -6,25 +6,23 @@
 
 ## VMS development enviornment quick setup instructions
 
-**WORK IN PROGRESS**
-
 1. Create a new Digital Ocean Ubuntu 14.04.4 machine >> SSH in >> Run (or read) vms quick install
  1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/bin/vmsquickinstall.sh | bash`
 1. Run app
  1. `cd ~/vms`
  1. `meteor`
-      1. Warning: The meteor dev enviornment is resource hungry. The first run will go especially slow (5 minutes?) on a vms machine.
+      1. Warning: The meteor dev enviornment is resource hungry. The first run will go especially slow (5+ minutes?) on a vms machine. After that it's expected to be okay for at least simple changes.
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
 
-Note: setting.json is required to spin up virtual machines, but you can contribute to the UI without worrying about that. Contributing notes below have full setup instructions.
+Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
 
-## Contributing (Setting up a full dev enviornment)
+## Full development enviornment setup instructions
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
 1. `meteor npm install`
-1. Copy ./settings/template.json somewhere private
+1. Copy `./settings/template.json` to somewhere private named something like `settings.json`
  1. Get your Digital Ocean api token from https://cloud.digitalocean.com/settings/api/tokens
  1. Use `ssh-keygen -t rsa -f new` to create a pub/private key
       1. Put the private key in your settings.json with "\n" strings in place of newlines
