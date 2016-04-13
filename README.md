@@ -6,7 +6,7 @@
 
 ## VMS development enviornment quick setup instructions
 
-1. Create a new Digital Ocean Ubuntu 14.04.4 machine >> SSH in >> Run (or read) vms quick install
+1. Create a new Digital Ocean Ubuntu 14.04.4 machine (1G+ recommended) >> SSH in >> Run (or read) vms quick install
  1. `curl -L -o- https://rawgit.com/codeforeauclaire/vms/master/bin/vmsquickinstall.sh | bash`
 1. Run app
  1. `cd ~/vms`
