@@ -9,4 +9,4 @@ done
 SCRIPT_PATH="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 # Run Meteor
-meteor --settings $SCRIPT_PATH/../../settings/vms.c4ec.astige.com.json
+meteor --settings $SCRIPT_PATH/../../settings/vms.codeforeauclaire.org.json
