@@ -190,7 +190,7 @@ Template.auth.events({
 });
 
 /// Key source toggle
-// TODO: Re-use these init/set/get methods
+// TODO: Re-use these init/set/get methods for status
 var get = function(name) {
 	return localStorage.getItem(name);
 };
