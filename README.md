@@ -17,6 +17,14 @@
 
 Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
 
+## Setting up other sites vmsquickinstall.sh scripts
+
+1. Copy a vmsquickinstall.sh script from another site, tear out junk you don't need
+1. Spin up a new machine using the production host of this vms site
+1. Edit your vmsquickinstall.sh to work better
+1. Use a command like `IP= && scp -i ~/.ssh/vms_id_rsa vmsquickinstall.sh root@$IP:/root/ && ssh -i ~/.ssh/vms_id_rsa root@$IP /root/vmsquickinstall.sh` to run your script
+1. Repeat steps 2-4 until vmsquickinstall.sh is smooth (ideally no human interation; just works)
+
 ## Full development enviornment setup instructions
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
