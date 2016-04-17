@@ -194,8 +194,8 @@ Template.auth.events({
 var get = function(name) {
 	return localStorage.getItem(name);
 };
-var set = function(name, val, reactiveSource) {
-	reactiveSource.set(val);
+var set = function(name, val, instance) {
+	instance[name].set(val);
 	localStorage.setItem(name, val);
 };
 var init = function(templateInstance, name, def) {
@@ -225,14 +225,18 @@ Template.manage.helpers({
 });
 Template.manage.events({
 	'change input[name=optionsKeySource]': function(event, instance) {
-		var key = 'keySource';
-		var val = $(event.target).val();
-		set(key, val, instance[key]);
+		set(
+			'keySource',
+			$(event.target).val(),
+			instance
+		);
 	},
 	'focusout textarea.my-key': function(event, instance) {
-		var key = $(event.target).attr('name');
-		var val = $(event.target).val();
-		set(key, val, instance[key]);
+		set(
+			$(event.target).attr('name'),
+			$(event.target).val(),
+			instance
+		);
 	}
 });
 
