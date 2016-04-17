@@ -134,7 +134,7 @@
 			<br />
 			<strong>Public Key</strong>
 			<br />
-			<textarea class="form-control" rows="3"></textarea>
+			<textarea class="form-control my-key" name="myPublicKey" rows="3">{{myPublicKey}}</textarea>
 			<br />
 
 			<strong>
@@ -142,7 +142,7 @@
 				(optional, if provided will be placed on new machines at ~/.ssh/id_rsa)
 			</strong>
 			<br />
-			<textarea class="form-control" rows="3"></textarea>
+			<textarea class="form-control my-key" name="myPrivateKey" rows="3">{{myPrivateKey}}</textarea>
 		</div>
 		<br />
 	{{/if}}

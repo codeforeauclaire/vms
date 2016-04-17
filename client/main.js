@@ -190,6 +190,18 @@ Template.auth.events({
 });
 
 /// Key source toggle
+// TODO: Re-use these init/set/get methods
+var get = function(name) {
+	return localStorage.getItem(name);
+};
+var set = function(name, val, reactiveSource) {
+	reactiveSource.set(val);
+	localStorage.setItem(name, val);
+};
+var init = function(templateInstance, name, def) {
+	templateInstance[name] = new ReactiveVar();
+	templateInstance[name].set((get(name) ? get(name) : def));
+};
 var getKeySource = function() {
 	var source = localStorage.getItem('keySource');
 	if (!source) {
@@ -204,6 +216,9 @@ var setKeySource = function(keySourceSetTo, reactiveKeySource) {
 Template.manage.onCreated(function() {
 	this.keySource = new ReactiveVar();
 	this.keySource.set(getKeySource());
+
+	init(this, 'myPublicKey', '');
+	init(this, 'myPrivateKey', '');
 });
 Template.manage.helpers({
 	isKeySource: function(keySource) {
@@ -213,12 +228,23 @@ Template.manage.helpers({
 	isMySource: function() {
 		var ks = Template.instance().keySource.get();
 		return ks === 'mine';
+	},
+	myPublicKey: function() {
+		return Template.instance().myPublicKey.get();
+	},
+	myPrivateKey: function() {
+		return Template.instance().myPrivateKey.get();
 	}
 });
 Template.manage.events({
 	'change input[name=optionsKeySource]': function(event, instance) {
 		var val = $(event.target).val();
 		setKeySource(val, instance.keySource);
+	},
+	'focusout textarea.my-key': function(event, instance) {
+		var key = $(event.target).attr('name');
+		var val = $(event.target).val();
+		set(key, val, instance[key]);
 	}
 });
 
