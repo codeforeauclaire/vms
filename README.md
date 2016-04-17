@@ -67,6 +67,8 @@ Alternatively or additionally you may contact Digital Ocean support to request a
 1. Seperate out into multiple pages (flowrouter?)
  1. Move some of the About and maybe Other resources to other page(s)?
  1. Move Authentication to another page?
+1. Delete old public ssh keys uploaded to Digital Ocean
+ 1. If too many get there the API may paginate them when we list, which will break things
 1. Give a retry button when stuck in an error'd state
 1. Add description to UI somewhere that 1gb machines last 1/2 the length as 512mb machines
  1. And to be curtious and only use 1gb machines when needed. Suggest use swap space in your quickvms scripts like in this one's?

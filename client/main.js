@@ -7,6 +7,20 @@ import { ReactiveVar } from 'meteor/reactive-var';
 import selectText from './selectText.js';
 import './main.html';
 
+// Helpers for reactive localStorage variables
+// TODO: Re-use these init/set/get methods for status
+var get = function(name) {
+	return localStorage.getItem(name);
+};
+var set = function(name, val, instance) {
+	instance[name].set(val);
+	localStorage.setItem(name, val);
+};
+var init = function(templateInstance, name, def) {
+	templateInstance[name] = new ReactiveVar();
+	templateInstance[name].set((get(name) ? get(name) : def));
+};
+
 var hasSettings = function() {
 	return (_.size(Meteor.settings.public) > 0);
 };
@@ -78,11 +92,13 @@ var runSelfDestructTimer = function(reactiveStatus) {
 };
 var spinNewVM = function(reactiveStatus, newSize) {
 	setStatus({ human: 'Requesting to spin up a new machine' }, reactiveStatus);
-	Meteor.call('spinUpNewVM', newSize, function(err, result) {
+	var myPublicKey = (get('keySource') === 'mine' ? get('myPublicKey') : false);
+	Meteor.call('spinUpNewVM', newSize, myPublicKey, function(err, result) {
 		if (err) {
 			setStatus(
 				{
-					human: 'Error spinning up a new machine'
+					error: true,
+					human: 'Error spinning up a new machine (Refresh the page to start over)'
 				},
 				reactiveStatus
 			);
@@ -121,13 +137,14 @@ var destroyOldVM = function( // jshint ignore:line
 	});
 };
 
+// TODO: Reduce complexity
 Template.main.onCreated(function() {
 	if (!hasSettings()) {
 		return false;
 	}
 	this.status = new ReactiveVar();
 	var status = getStatus();
-	if (status) {
+	if (status && !status.error) {
 		this.status.set(status);
 		if (status.destroying) {
 			destroyOldVM(status.serverData.id, status.serverData.apiTokenNumber, this.status);
@@ -141,6 +158,10 @@ Template.main.onCreated(function() {
 			}
 		}
 	} else {
+		if (status.error) {
+			// Error, could be with key, so just set source to vms
+			localStorage.setItem('keySource', 'vms');
+		}
 		spinNewVM(this.status, '512mb');
 	}
 });
@@ -190,18 +211,6 @@ Template.auth.events({
 });
 
 /// Key source toggle
-// TODO: Re-use these init/set/get methods for status
-var get = function(name) {
-	return localStorage.getItem(name);
-};
-var set = function(name, val, instance) {
-	instance[name].set(val);
-	localStorage.setItem(name, val);
-};
-var init = function(templateInstance, name, def) {
-	templateInstance[name] = new ReactiveVar();
-	templateInstance[name].set((get(name) ? get(name) : def));
-};
 Template.manage.onCreated(function() {
 	init(this, 'keySource', 'vms');
 	init(this, 'myPublicKey', '');

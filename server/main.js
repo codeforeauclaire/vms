@@ -1,13 +1,16 @@
 'use strict';
-/*globals Meteor, _, moment*/
+/*globals Meteor, _, moment, Curl, EJSON */
 
 import { Meteor } from 'meteor/meteor';
+import { EJSON } from 'meteor/ejson';
 import DigitalOceanApi from 'digital-ocean-api';
 import Future from 'fibers/future';
 
+function getApiToken(apiTokenNumber) {
+	return Meteor.settings.digitalocean.apitokens[apiTokenNumber];
+}
 function getApi(apiTokenNumber) {
-	var token = Meteor.settings.digitalocean.apitokens[apiTokenNumber];
-	return new DigitalOceanApi({ token: token });
+	return new DigitalOceanApi({ token: getApiToken(apiTokenNumber) });
 }
 
 function selfDestructOldServers(apiTokenNumber) {
@@ -55,6 +58,75 @@ function hasSettings() {
 	return (_.size(Meteor.settings.public) > 0);
 }
 
+function getSSHKeys(apiToken) {
+	var fut = new Future();
+	Curl.request({
+		url: 'https://api.digitalocean.com/v2/account/keys',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + apiToken
+		}
+	}, function(err, stdout, meta) {
+		if (err) {
+			throw err;
+		}
+
+		// Construct id:key pair object
+		var keys = {};
+		var kk = 'ssh_keys';
+		_.each(EJSON.parse(stdout)[kk], function(key, ii) {
+			var kk = 'public_key';
+			keys[key.id] = key[kk];
+		});
+
+		fut.return(keys);
+	});
+
+	return fut.wait();
+}
+function getSSHKeyId(apiToken, publicKey) {
+	var ret = false;
+	_.each(getSSHKeys(apiToken), function(pubKey, id) {
+		if (pubKey === publicKey) {
+			ret = id;
+		}
+	});
+	return ret;
+}
+// Creates an SSH key on DigitalOcean, and returns it's DigitalOcean id
+function createSSHKey(key, apiToken) {
+	var data = {
+		name: 'vmscustom_' +  moment().toISOString() + '_' + _.random(0, 999999)
+	};
+	var ii = 'public_key';
+	data[ii] = key;
+	var fut = new Future();
+	Curl.request({
+		url: 'https://api.digitalocean.com/v2/account/keys',
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + apiToken
+		},
+		data: JSON.stringify(data)
+	}, function(err, stdout, meta) {
+		if (err) {
+			console.log('Error creating SSH key: Returned error');
+			console.log(err);
+			return fut.throw(err);
+		}
+		var ii = 'ssh_key';
+		if (!stdout || !stdout[ii] || !stdout[ii].id) {
+			console.log('Error creating SSH key: Returned no key');
+			console.log(stdout);
+			return fut.throw('cant-find-key-id');
+		}
+		return fut.return(stdout[ii].id);
+	});
+
+	return fut.wait();
+}
+
 Meteor.startup(() => {
 	if (!hasSettings()) {
 		return false;
@@ -66,7 +138,7 @@ Meteor.startup(() => {
 });
 
 Meteor.methods({
-	'spinUpNewVM': function(size) {
+	'spinUpNewVM': function(size, publicKey) {
 		if ( (size !== '512mb') && (size !== '1gb') ) {
 			throw new Error('invalid-input', 'Only 512mb and 1gb sizes allowed');
 		}
@@ -87,6 +159,19 @@ Meteor.methods({
 
 		// Call recursively returning in the future when successful or final failure
 		var create = function(apiTokenNumber) {
+			// Set users public key if it was passed
+			if (publicKey) {
+				console.log('* publicKey passed');
+				var sshKeyId = getSSHKeyId(getApiToken(apiTokenNumber), publicKey);
+				if (!sshKeyId) {
+					console.log(' * createSSHKey(' + apiTokenNumber + ')');
+					sshKeyId = createSSHKey(publicKey, getApiToken(apiTokenNumber));
+				}
+				console.log(' * SSHKeyID: ' + sshKeyId);
+				var kk = 'ssh_keys';
+				requestBody[kk] = [ sshKeyId ];
+			}
+
 			console.log('* create(' + apiTokenNumber + ')');
 			// TOKEN-AND-FINGERPRINT-TESTER
 			// * Uncomment and tweak number to test different DigOcean apiTokenNumber
