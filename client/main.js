@@ -202,21 +202,8 @@ var init = function(templateInstance, name, def) {
 	templateInstance[name] = new ReactiveVar();
 	templateInstance[name].set((get(name) ? get(name) : def));
 };
-var getKeySource = function() {
-	var source = localStorage.getItem('keySource');
-	if (!source) {
-		return 'vms';
-	}
-	return source;
-};
-var setKeySource = function(keySourceSetTo, reactiveKeySource) {
-	reactiveKeySource.set(keySourceSetTo);
-	return localStorage.setItem('keySource', keySourceSetTo);
-};
 Template.manage.onCreated(function() {
-	this.keySource = new ReactiveVar();
-	this.keySource.set(getKeySource());
-
+	init(this, 'keySource', 'vms');
 	init(this, 'myPublicKey', '');
 	init(this, 'myPrivateKey', '');
 });
@@ -238,8 +225,9 @@ Template.manage.helpers({
 });
 Template.manage.events({
 	'change input[name=optionsKeySource]': function(event, instance) {
+		var key = 'keySource';
 		var val = $(event.target).val();
-		setKeySource(val, instance.keySource);
+		set(key, val, instance[key]);
 	},
 	'focusout textarea.my-key': function(event, instance) {
 		var key = $(event.target).attr('name');
