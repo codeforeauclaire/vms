@@ -189,6 +189,39 @@ Template.auth.events({
 	}
 });
 
+/// Key source toggle
+var getKeySource = function() {
+	var source = localStorage.getItem('keySource');
+	if (!source) {
+		return 'vms';
+	}
+	return source;
+};
+var setKeySource = function(keySourceSetTo, reactiveKeySource) {
+	reactiveKeySource.set(keySourceSetTo);
+	return localStorage.setItem('keySource', keySourceSetTo);
+};
+Template.manage.onCreated(function() {
+	this.keySource = new ReactiveVar();
+	this.keySource.set(getKeySource());
+});
+Template.manage.helpers({
+	isKeySource: function(keySource) {
+		var ks = Template.instance().keySource.get();
+		return (ks === keySource);
+	},
+	isMySource: function() {
+		var ks = Template.instance().keySource.get();
+		return ks === 'mine';
+	}
+});
+Template.manage.events({
+	'change input[name=optionsKeySource]': function(event, instance) {
+		var val = $(event.target).val();
+		setKeySource(val, instance.keySource);
+	}
+});
+
 var destroy = function(newSize) {
 	var msg = 'Are you sure you want to do this?\n' +
 		'  Your current machine will be immediately destroyed.';

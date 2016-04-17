@@ -114,6 +114,39 @@
 
 <template name="manage">
 	<h3>Manage</h3>
+	<h4>New machine private/public key source</h4>
+	<div class="radio">
+		<label>
+			<input type="radio" name="optionsKeySource" value="vms" checked="{{isKeySource "vms"}}">
+			VMS shared keys (simple)
+		</label>
+	</div>
+	<div class="radio">
+		<label>
+			<input type="radio" name="optionsKeySource" value="mine" checked="{{isKeySource "mine"}}">
+			My secret keys (secure)
+		</label>
+	</div>
+	{{#if isMySource}}
+		<div>
+			New machines instantiated with your keys. Others won't be able to ssh into your machine, which can help development. We recommend creating a separate set of keys for vms use only (anything placed here is stored in your browsers' local storage), and placing them at ~/.ssh/my_vms_id_rsa and ~/.ssh/my_vms_id_rsa.pub (the hints here will assume that).
+			<br />
+			<br />
+			<strong>Public Key</strong>
+			<br />
+			<textarea class="form-control" rows="3"></textarea>
+			<br />
+
+			<strong>
+				Private Key
+				(optional, if provided will be placed on new machines at ~/.ssh/id_rsa)
+			</strong>
+			<br />
+			<textarea class="form-control" rows="3"></textarea>
+		</div>
+		<br />
+	{{/if}}
+
 	<button class="btn btn-primary new-512mb">Give me a new machine (512mb)</button>
 	<button class="btn btn-default new-1gb">Give me a new machine (1gb)</button>
 	Current Machine will self destruct in about {{selfDestructTimeLeftHuman}}
