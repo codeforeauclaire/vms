@@ -19,7 +19,8 @@ Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required 
 
 ## Setting up other sites vmsquickinstall.sh scripts
 
-1. Copy a vmsquickinstall.sh script from another site, tear out junk you don't need
+1. Copy a vmsquickinstall.sh script from another site (with similar stack if possible)
+ 1. Tear out junk you know you don't need
 1. Spin up a new machine using the production host of this vms site
 1. Edit your vmsquickinstall.sh to work better
 1. Use a command like `IP= && scp -i ~/.ssh/vms_id_rsa vmsquickinstall.sh root@$IP:/root/ && ssh -i ~/.ssh/vms_id_rsa root@$IP /root/vmsquickinstall.sh` to run your script
