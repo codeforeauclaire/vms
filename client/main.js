@@ -158,7 +158,7 @@ Template.main.onCreated(function() {
 			}
 		}
 	} else {
-		if (status.error) {
+		if (status && status.error) {
 			// Error, could be with key, so just set source to vms
 			localStorage.setItem('keySource', 'vms');
 		}
