@@ -70,6 +70,8 @@ Alternatively or additionally you may contact Digital Ocean support to request a
 1. Deal with bad public key uploading (errors from DO, display a useful message)
 1. Delete old public ssh keys uploaded to Digital Ocean
  1. If too many get there the API may paginate them when we list, which will break things
+	 1. Implement garbage collection like delete servers run every 10 minutes that deleted keys older than 5 minutes?
+	     1. Not perfect, but probably good enough.  May get race condition errors if click wrong time, but uncommon.
 1. Give a retry button when stuck in an error'd state
 1. Add description to UI somewhere that 1gb machines last 1/2 the length as 512mb machines
  1. And to be curtious and only use 1gb machines when needed. Suggest use swap space in your quickvms scripts like in this one's?
