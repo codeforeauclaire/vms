@@ -115,13 +115,14 @@ function createSSHKey(key, apiToken) {
 			console.log(err);
 			return fut.throw(err);
 		}
-		var ii = 'ssh_key';
-		if (!stdout || !stdout[ii] || !stdout[ii].id) {
+		var retData = EJSON.parse(stdout);
+		var kk = 'ssh_key';
+		if (!retData || !retData[kk] || !retData[kk].id) {
 			console.log('Error creating SSH key: Returned no key');
 			console.log(stdout);
 			return fut.throw('cant-find-key-id');
 		}
-		return fut.return(stdout[ii].id);
+		return fut.return(retData[kk].id);
 	});
 
 	return fut.wait();
