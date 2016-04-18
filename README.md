@@ -67,6 +67,7 @@ Alternatively or additionally you may contact Digital Ocean support to request a
 1. Seperate out into multiple pages (flowrouter?)
  1. Move some of the About and maybe Other resources to other page(s)?
  1. Move Authentication to another page?
+1. Deal with bad public key uploading (errors from DO, display a useful message)
 1. Delete old public ssh keys uploaded to Digital Ocean
  1. If too many get there the API may paginate them when we list, which will break things
 1. Give a retry button when stuck in an error'd state
