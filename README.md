@@ -28,6 +28,7 @@ Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required 
 1. Run your vmsquickinstall.sh on the server using `IP= && scp -i ~/.ssh/vms_id_rsa vmsquickinstall.sh root@$IP:/root/ && ssh -i ~/.ssh/vms_id_rsa root@$IP /root/vmsquickinstall.sh`
  1. Populate your vms server IP address
 1. Repeat steps 2-4 until vmsquickinstall.sh is smooth (ideally no human interation; just works)
+1. Update the site's README.md by copying another sites quick install instructions and tweaking as needed
 
 ## Full development enviornment setup instructions
 
