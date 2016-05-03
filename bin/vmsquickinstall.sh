@@ -21,7 +21,7 @@ sudo swapon /swapfile
 curl https://install.meteor.com/ | sh
 
 # Clone repository
-git clone https://github.com/codeforeauclaire/vms.git /root/vms
+git clone https://github.com/$GHUSER/vms.git /root/vms
 
 # Install npm stuff for Meteor locally
 (cd /root/vms && meteor npm install)
