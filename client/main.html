@@ -70,6 +70,40 @@
 					<p>1) Setup <a href="#auth">authentication</a> if you haven't yet</p>
 					<p>2) Connect with ssh as root using the custom private key</p>
 					<pre>ssh -i ~/.ssh/vms_id_rsa root@{{ip}}</pre>
+					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseEditMac" aria-expanded="false" aria-controls="collapseEdit">
+						Edit files with a mac
+					 </a>
+					<div class="collapse" id="collapseEditMac">
+						<p>
+							<strong>
+								How edit files on the remote machine using Mac OS
+								(
+									Using
+									<a href="http://www.barebones.com/products/textwrangler/">
+										Text Wrangler
+									</a>
+								)
+							</strong>
+						</p>
+						<p>
+							1) Configure your computer to
+							connect by opening a terminal and running:
+						</p>
+						<pre>echo 'IdentityFile ~/.ssh/vms_id_rsa' >> ~/.ssh/config</pre>
+						<p>2) Install
+							<a
+								href="http://www.barebones.com/products/textwrangler/download.html"
+								target="_blank">
+								Text Wrangler
+							</a>
+						</p>
+						<p>3) Open Text Wrangler >> File >> Open Remote File</p>
+						<p>3a) Server:</p>
+						<pre>{{ip}}</pre>
+						<p>3b) Check SFTP</p>
+						<p>3c) User: <pre>root</pre></p>
+						<p>3d) Click connect (no password needed)</p>
+					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="connectWindows">
 					<br />
@@ -83,7 +117,7 @@
 					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseTransfer" aria-expanded="false" aria-controls="collapseTransfer">
 						Transfer files
 					 </a>
-					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseEdit" aria-expanded="false" aria-controls="collapseEdit">
+					<a class="btn btn-primary" role="button" data-toggle="collapse" href="#collapseEditWindows" aria-expanded="false" aria-controls="collapseEdit">
 						Edit files
 					 </a>
 					<div class="collapse" id="collapseTransfer">
@@ -94,7 +128,7 @@
 
 					</div>
 
-					<div class="collapse" id="collapseEdit">
+					<div class="collapse" id="collapseEditWindows">
 						<p><strong>How to edit files on the remote machine directly</strong></p>
 						<p>1) Download <a href="https://notepad-plus-plus.org/download/">NotePad++</a> (Installer recomended) >> Install >> Run</p>
 						<p>2) Plugins >> Plugin Manager >> Show Plugin Manager >> Check NppFTP >> Install >> restart</p>
