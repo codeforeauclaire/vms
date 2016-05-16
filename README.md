@@ -21,7 +21,7 @@ Use these instructions to setup a temporary* development environment of this pro
 
 Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
 
-*For a permanent development enviornment we recommend you read the referenced script above to install locally.
+<sub>*For a permanent development enviornment we recommend you read the referenced script above to install locally.</sub>
 
 ## Setting up other sites vmsquickinstall.sh scripts
 
