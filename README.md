@@ -6,7 +6,7 @@
 
 ## VMS Easy setup development enviornment
 
-Use these instructions to setup a temporary* development environment of this project for yourself.
+Use these instructions to setup a temporary* development environment of this project.
 
 1. Fork this repository
 1. Create a new [Virtual Machine](http://vms.codeforeauclaire.org/) (1gb+ recommended) >> SSH in >> Run (or read) vms quick install
