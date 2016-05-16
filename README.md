@@ -1,10 +1,10 @@
 ## Purpose
 
-* New developers coming to C4EC need to experience clean development enviornments
-* Diverse projectis require clean enviornment to do follow along demos and test READMEs
+* New developers coming to C4EC need to experience clean development environments
+* Diverse projectis require clean environment to do follow along demos and test READMEs
 * Quick testing of one off ideas
 
-## VMS Easy setup development enviornment
+## VMS Easy setup development environment
 
 Use these instructions to setup a temporary* development environment of this project.
 
@@ -15,13 +15,13 @@ Use these instructions to setup a temporary* development environment of this pro
 1. Run app
  1. `cd ~/vms`
  1. `meteor`
-      1. Warning: The meteor dev enviornment is resource hungry. The first run will go especially slow (5+ minutes?) on a vms machine. After that it's expected to be okay for at least simple changes.
+      1. Warning: The meteor dev environment is resource hungry. The first run will go especially slow (5+ minutes?) on a vms machine. After that it's expected to be okay for at least simple changes.
  1. Load http://{vms-ip}:3000 in your browser
  1. Edit a file >> see changes intantly in your browser
 
 Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
 
-*For a permanent development enviornment we recommend you read the referenced script above to install locally.
+*For a permanent development environment we recommend you read the referenced script above to install locally.
 
 ## Setting up other sites vmsquickinstall.sh scripts
 
@@ -34,7 +34,7 @@ Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required 
 1. Repeat steps 2-4 until vmsquickinstall.sh is smooth (ideally no human interation; just works)
 1. Update the site's README.md by copying another sites quick install instructions and tweaking as needed
 
-## Full development enviornment setup instructions
+## Full development environment setup instructions
 
 1. Install meteor (Follow instructions at https://www.meteor.com/install)
 1. cd to root folder of your clone
