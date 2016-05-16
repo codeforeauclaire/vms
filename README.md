@@ -1,7 +1,9 @@
-## Purpose
+# Virtual machines
+
+Provides free temporary virtual machines using Digital Ocean for:
 
 * New developers coming to C4EC need to experience clean development environments
-* Diverse projectis require clean environment to do follow along demos and test READMEs
+* Diverse projects require clean environment to do follow along demos and test READMEs
 * Quick testing of one off ideas
 
 ## VMS Easy setup development environment
