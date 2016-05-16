@@ -4,7 +4,9 @@
 * Diverse projectis require clean enviornment to do follow along demos and test READMEs
 * Quick testing of one off ideas
 
-## VMS development enviornment quick setup instructions
+## VMS Easy setup development enviornment
+
+Use these instructions to setup a temporary* development environment of this project for yourself.
 
 1. Fork this repository
 1. Create a new [Virtual Machine](http://vms.codeforeauclaire.org/) (1gb+ recommended) >> SSH in >> Run (or read) vms quick install
@@ -18,6 +20,8 @@
  1. Edit a file >> see changes intantly in your browser
 
 Note: `vmsquickinstall.sh` doesn't insclude a `settings.json` which is required for some app functionality. You can however work on some of the UI without worrying about that.
+
+*For a permanent development enviornment we recommend you read the referenced script above to install locally.
 
 ## Setting up other sites vmsquickinstall.sh scripts
 
