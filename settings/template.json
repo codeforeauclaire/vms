@@ -9,6 +9,9 @@
 			"ppk":"",
 			"public":"",
 			"fingerprint": ""
+		},
+		"analyticsSettings": {
+			"Google Analytics" : {"trackingId": ""}
 		}
 	}
 }
