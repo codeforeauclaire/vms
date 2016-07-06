@@ -28,17 +28,22 @@
 			<h3>Hello developer. You're running without settings. Some stuff won't work. Some errors will occur. You can kinda work on the UI though with it as is.</h3>
 		</div>
 	{{/unless}}
-	<h2>Your Virtual Machine</h2>
-	{{#if ready}}
-		{{> connect ip=ip privateKey=privateKey}}
-		{{> manage selfDestructTimeLeftHuman=selfDestructTimeLeftHuman}}
+	{{#if newVisitor}}
+		<h2>Welcome</h2>
+		<button class="btn btn-primary js-first-new-machine">Make my machine</button>
+	{{else}}
+		<h2>Your Virtual Machine</h2>
+		{{#if ready}}
+			{{> connect ip=ip privateKey=privateKey}}
+			{{> manage selfDestructTimeLeftHuman=selfDestructTimeLeftHuman}}
+		{{/if}}
+		{{#unless ready}}
+			<span class="spin-container">
+				{{> spinner}}
+			</span>
+			{{loadingStatus}}
+		{{/unless}}
 	{{/if}}
-	{{#unless ready}}
-		<span class="spin-container">
-			{{> spinner}}
-		</span>
-		{{loadingStatus}}
-	{{/unless}}
 </template>
 
 <template name="connect">

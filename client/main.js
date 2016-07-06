@@ -157,16 +157,13 @@ Template.main.onCreated(function() {
 				runPoller(status.serverData.id, status.serverData.apiTokenNumber, this.status);
 			}
 		}
-	} else {
-		if (status && status.error) {
-			// Error, could be with key, so just set source to vms
-			localStorage.setItem('keySource', 'vms');
-		}
-		spinNewVM(this.status, '512mb');
 	}
 });
 
 Template.main.helpers({
+	newVisitor: function() {
+		return _.isUndefined(Template.instance().status.get())
+	},
 	hasSettings: hasSettings,
 	counter: function() {
 		return Template.instance().counter.get();
@@ -192,6 +189,14 @@ Template.main.helpers({
 	}
 });
 Template.main.events({
+	'click .js-first-new-machine': function(ev, it) {
+		var status = getStatus();
+		if (status && status.error) {
+			// Error, could be with key, so just set source to vms
+			localStorage.setItem('keySource', 'vms');
+		}
+		spinNewVM(it.status, '512mb');
+	},
 	'click pre': function(e) {
 		selectText(e.target);
 	}
